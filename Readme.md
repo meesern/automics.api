@@ -37,11 +37,13 @@ The API sets out to correctly use HTTP response codes for HTTP API request statu
 
 Code	Meaning	Description
 
-| 200 	| OK             	         | Request successful - response contains valid data 
-| 400 	| Bad Request    	         | The request was not well formed or required parameters were missing 
-| 403 	| Not Authorized 	         | Authentication failed.  API key may be unrecognised or not authorised for to access the data at the given URL 
-| 404 	| Not Found      	         | The API element was not found 
-| 500 	| Internal Server Error 	  | Problem with the service. 
+<table>
+<tr>| 200 	| OK             	         | Request successful - response contains valid data </tr>
+<tr>| 400 	| Bad Request    	         | The request was not well formed or required parameters were missing </tr>
+<tr>| 403 	| Not Authorized 	         | Authentication failed.  API key may be unrecognised or not authorised for to access the data at the given URL </tr>
+<tr>| 404 	| Not Found      	         | The API element was not found </tr>
+<tr>| 500 	| Internal Server Error 	  | Problem with the service. </tr>
+</table>
 
 ## Format
 In general API requests follow the REST CRUD (Create, Retrieve, Update, Delete) model using HTTP PUT, POST, GET, and DELETE verbs.
