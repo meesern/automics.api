@@ -8,17 +8,20 @@ The Automics II API provides the interface between the mobile applications that 
  
 The Automics II server implements a REST API over the following objects of interest...
 
-Object	Description	Example	Index
-Group	The group within which the comic is shared.	Steve’s trip to Alton Towers 	Group Name
-User	A user of the service.	Steve	User Name  
-Organisation	An event organisation.	Alton Towers, Nottingham Forest	Organisation Name
-Theme	A comic styling.	Nottingham Forrest Red	Id
-Resource	An themed image or Text.	Logo, Frame, Page, CSS, professional photographs	Id
-Event	An organisation specific group.	FA Cup, New Years Eve	Id
-Photo	A photograph or other image		Id
-Annotation	A caption to be placed on an image.	“Come on you Reds!”	Id
-Panel	A styled editable image with annotations	Steve cheering with annotations and red border.	Id
-Comic	A comic strip.	Steve Cheers a Goal!	Id
+```
+Object	      | Description	| Example	| Index
+==============+=================+===============+============
+Group	      | The group among which the comic is shared.	Steve’s trip to Alton Towers 	Group Name
+User	      | A user of the service.	Steve	User Name  
+Organisation  | An event organisation.	Alton Towers, Nottingham Forest	Organisation Name
+Theme	      | A comic styling.	Nottingham Forrest Red	Id
+Resource      | An themed image or Text.	Logo, Frame, Page, CSS, professional photographs	Id
+Event	      | An organisation specific group.	FA Cup, New Years Eve	Id
+Photo	      | A photograph or other image		Id
+Annotation    | A caption to be placed on an image.	“Come on you Reds!”	Id
+Panel	      | A styled editable image with annotations	Steve cheering with annotations and red border.	Id
+Comic	      | A comic strip.	Steve Cheers a Goal!	Id
+```
 
 ## Access and Security
 The API uses a session token submitted in the header of each REST request to authenticate the User in the request .  This authentication then permits manipulation of the data according to the following hierarchy:
@@ -35,15 +38,15 @@ The API uses a session token submitted in the header of each REST request to aut
 ## HTTP
 The API sets out to correctly use HTTP response codes for HTTP API request status.  API clients should handle any valid HTTP response code including redirect.  Possible response codes include: 
 
-Code	Meaning	Description
-
-<table>
-<tr>| 200 	| OK             	         | Request successful - response contains valid data </tr>
-<tr>| 400 	| Bad Request    	         | The request was not well formed or required parameters were missing </tr>
-<tr>| 403 	| Not Authorized 	         | Authentication failed.  API key may be unrecognised or not authorised for to access the data at the given URL </tr>
-<tr>| 404 	| Not Found      	         | The API element was not found </tr>
-<tr>| 500 	| Internal Server Error 	  | Problem with the service. </tr>
-</table>
+```
+Code	| Meaning	                 | Description
+========+================================+=====================================
+200 	| OK             	         | Request successful - response contains valid data 
+400 	| Bad Request    	         | The request was not well formed or required parameters were missing 
+403 	| Not Authorized 	         | Authentication failed.  API key may be unrecognised or not authorised for to access the data at the given URL 
+404 	| Not Found      	         | The API element was not found
+500 	| Internal Server Error 	 | Problem with the service. 
+```
 
 ## Format
 In general API requests follow the REST CRUD (Create, Retrieve, Update, Delete) model using HTTP PUT, POST, GET, and DELETE verbs.
