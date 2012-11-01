@@ -1,4 +1,3 @@
-
 # Automics II API
 
 Automics II is a [Horizon Digital Economy Research](http://www.horizon.ac.uk) project to explore the group creation of micro comics that can be created and shared during a day out - to a theme park for example.  You can read more about the project on the [Automics website](http://automicsii.wp.horizon.ac.uk/).
@@ -36,13 +35,13 @@ The API uses a session token submitted in the header of each REST request to aut
 ## HTTP
 The API sets out to correctly use HTTP response codes for HTTP API request status.  API clients should handle any valid HTTP response code including redirect.  Possible response codes include: 
 
-
 Code	Meaning	Description
- 200 	 OK             	 Request successful - response contains valid data 
- 400 	 Bad Request    	 The request was not well formed or required parameters were missing 
- 403 	 Not Authorized 	 Authentication failed.  API key may be unrecognised or not authorised for to access the data at the given URL 
- 404 	 Not Found      	 The API element was not found 
- 500 	 Internal Server Error 	 Problem with the service. 
+
+| 200 	| OK             	         | Request successful - response contains valid data 
+| 400 	| Bad Request    	         | The request was not well formed or required parameters were missing 
+| 403 	| Not Authorized 	         | Authentication failed.  API key may be unrecognised or not authorised for to access the data at the given URL 
+| 404 	| Not Found      	         | The API element was not found 
+| 500 	| Internal Server Error 	  | Problem with the service. 
 
 ## Format
 In general API requests follow the REST CRUD (Create, Retrieve, Update, Delete) model using HTTP PUT, POST, GET, and DELETE verbs.
