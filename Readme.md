@@ -9,18 +9,18 @@ The Automics II API provides the interface between the mobile applications that 
 The Automics II server implements a REST API over the following objects of interest...
 
 ```
-Object	      | Description	| Example	| Index
-==============+=================+===============+============
-Group	      | The group among which the comic is shared.	Steve’s trip to Alton Towers 	Group Name
-User	      | A user of the service.	Steve	User Name  
-Organisation  | An event organisation.	Alton Towers, Nottingham Forest	Organisation Name
-Theme	      | A comic styling.	Nottingham Forrest Red	Id
-Resource      | An themed image or Text.	Logo, Frame, Page, CSS, professional photographs	Id
-Event	      | An organisation specific group.	FA Cup, New Years Eve	Id
-Photo	      | A photograph or other image		Id
-Annotation    | A caption to be placed on an image.	“Come on you Reds!”	Id
-Panel	      | A styled editable image with annotations	Steve cheering with annotations and red border.	Id
-Comic	      | A comic strip.	Steve Cheers a Goal!	Id
+Object	      | Description	                           | Example	                      | Index
+==============+============================================+==================================+============
+Group	      | The group among which the comic is shared. | Steve’s trip to Alton Towers     | Group Name
+User	      | A user of the service.	                   | Steve                            | User Name  
+Organisation  | An event organisation.                     | Alton Towers, Nottingham Forest  | Organisation Name
+Theme	      | A comic styling.                           | Nottingham Forest Red            | Id
+Resource      | An themed image or Text.                   | Logo, Frame, Page, CSS etc.      | Id
+Event	      | An organisation specific group.	           | FA Cup, New Years Eve            | Id
+Photo	      | A photograph or other image                |                                  | Id
+Annotation    | A caption to be placed on an image.        | “Come on you Reds!”              | Id
+Panel	      | A styled editable image with annotations.  | Steve cheering + annotations & border. | Id
+Comic	      | A comic strip.                             | Telekinetic Steve scores a goal! | Id
 ```
 
 ## Access and Security
@@ -50,12 +50,18 @@ Code	| Meaning	                 | Description
 
 ## Format
 In general API requests follow the REST CRUD (Create, Retrieve, Update, Delete) model using HTTP PUT, POST, GET, and DELETE verbs.
+
 All requests are built from URLs which follow the format:
+
 http://<hostname>/<api-major-version>/<object>[/<qualifiers>]
+
 Concretely all request URL’s begin with the sequence:
+
 http://automics.data.horizon.ac.uk/v1/
+
 All retrieved data and POST data is in JSON format.  
-API Reference
+
+## API Reference
 
 Each object below is described initially with a concise notation where square brackets [] denote a list and name:type denotes the name and data type.  As this is an API document this section describes the interface, not the structure of the supporting database.
 
@@ -67,125 +73,245 @@ Group Invite
 Explicit get/set data
 
 ### Group
-[name: String, id: Integer, organisation:  Integer, event: Integer, <...etc..>]
-Index
+`[name: String, id: Integer, organisation:  Integer, event: Integer, <...etc..>]` 
+
+#### Index
+```
 GET  http://automics.data.horizon.ac.uk/v1/group
+```
+
 List all groups (for which the user is a member).  Note that user is derived from the authentication token.
-Get
+
+#### Get
+```
 GET  http://automics.data.horizon.ac.uk/v1/usergroup/<name>
 {<data>}
-Set
+```
+
+#### Set
+```
 PUT  http://automics.data.horizon.ac.uk/v1/group/<name>
 {<data>}
-Delete
+```
+
+#### Delete
+```
 DELETE  http://automics.data.horizon.ac.uk/v1/group/<name>
+```
+
 Deletes the group.  Delete is only activated when two or more members have requested the deletion.   Deleting the group removes all panels and comics belonging to the group. 
 
 ### User
+```
 [name: String, given_name: String, family_name: String , email_address: String, password_crypt: String, [group: String], <...etc..>]
-Index
+```
+
+#### Index
+```
 GET  http://automics.data.horizon.ac.uk/v1/user
+```
+
 List all users of the groups for which the user is a member.  
-Get
+#### Get
+```
 GET  http://automics.data.horizon.ac.uk/v1/user/<name>
 {<data>}
-Set
+```
+
+#### Set
+```
 PUT  http://automics.data.horizon.ac.uk/v1/user/<name>
 {<data>}
+```
+
 Only valid when user is the authenticated user.
-Delete
+#### Delete
+```
 DELETE  http://automics.data.horizon.ac.uk/v1/user/<name>
+```
+
 Only valid when user is the authenticated user.  Deleting the user does not delete other objects unless the user is the last user in a group, in which case the group and all associated objects are deleted.
 
 ### Organisation
+```
 [name: String, id: Integer,[event: Integer], [theme: Integer], <...etc..>]
-Index
+```
+
+#### Index
+```
 GET  http://automics.data.horizon.ac.uk/v1/organisation
+```
+
 List all organisations.
-Get
+#### Get
+```
 GET  http://automics.data.horizon.ac.uk/v1/ organisation /<name>
 {<data>}
+```
+
 ###  Event
+```
 [name: String, id: Integer, [resource: Integer],  [theme: Integer], <...etc..>]
-Index
+```
+
+#### Index
+```
 GET http://automics.data.horizon.ac.uk/v1/organisation/<org_id>/event
+```
+
 List all events belonging to an organisation.
-Get
+#### Get
+```
 GET  http://automics.data.horizon.ac.uk/v1/event /<id>
 {<data>}
+```
 
 ### Theme
+```
 [name: String, id: Integer, [resource:  Integer], <...etc..>]
-Index
+```
+
+#### Index
+```
 GET http://automics.data.horizon.ac.uk/v1/event/<event_id>/theme
+```
+
 List all themes of an event.
-Get
+#### Get
+```
 GET  http://automics.data.horizon.ac.uk/v1/ theme /<id>
 {<data>}
+```
+
 ### Resource
+```
 [name: String, type: String, image: Blob, text: String, <...etc..>]
-Get
+```
+
+#### Get
+```
 GET  http://automics.data.horizon.ac.uk/v1/ resource /<id>
 {<data>}
+```
 
 ### Photo
+```
 [description: String, id: Integer, group: String, data: Blob, width: Integer, height: integer , format: String ]
-Index
+```
+
+#### Index
+```
 GET http://automics.data.horizon.ac.uk/v1/photo
+```
+
 List all photos for the current group.  
-Get
+#### Get
+```
 GET  http://automics.data.horizon.ac.uk/v1/photo/<id>
 {<data>}
-Set
+```
+
+#### Set
+```
 PUT  http://automics.data.horizon.ac.uk/v1/photo/<id>
 {<data>}
-Delete
+```
+
+#### Delete
+```
 DELETE  http://automics.data.horizon.ac.uk/v1/photo/<id>
+```
+
 Delete accepted for any photo in the current group. 
 
 ### Annotation
+```
 [text: String, id: Integer, group: Integer,  photo: Integer, bubble_style: String, formatting_options: String, xpos_percent: Float, ypos_percent: Float, <...etc..> ]
-Index
+```
+
+#### Index
+```
 GET http://automics.data.horizon.ac.uk/v1/photo/<id>/annotation
+```
+
 List all annotations for photo – if photo is not a member of the current group error 400 is returned.   
-Get
+#### Get
+```
 GET  http://automics.data.horizon.ac.uk/v1/annotation/<id>
 {<data>}
-Set
+```
+
+#### Set
+```
 PUT  http://automics.data.horizon.ac.uk/v1/annotation/<id>
 {<data>}
-Delete
+```
+
+#### Delete
+```
 DELETE  http://automics.data.horizon.ac.uk/v1/annotation/<id>
+```
+
 Delete accepted for any annotation in the current group. 
 
 ### Panel
+```
 [id: Integer, group: Integer, [resource: integer, z-order: Integer], [photo: Integer, z-order: Integer, position: String, scale: Float], [annotation: id]]
-Index
+```
+
+#### Index
+```
 GET http://automics.data.horizon.ac.uk/v1/comic/<comic_id>/panel
+```
+
 List all panels for the specified comic.  Return error 400 is comic does not belong to the current group.  
-Get
+#### Get
+```
 GET  http://automics.data.horizon.ac.uk/v1/panel/<id>
 {<data>}
-Set
+```
+
+#### Set
+```
 PUT  http://automics.data.horizon.ac.uk/v1/panel/<id>
 {<data>}
-Delete
+```
+
+#### Delete
+```
 DELETE  http://automics.data.horizon.ac.uk/v1/ panel/<id>
+```
+
 Delete accepted for any panel in the current group. 
 
 ### Comic
+```
 [name: String, description: String, id: Integer, group: Integer, event: Integer, [panel: Integer] , comic_image: Integer, <...etc..> ]
-Index
+```
+
+#### Index
+```
 GET http://automics.data.horizon.ac.uk/v1/comic
+```
+
 List all comics for the current group.
-Get
+#### Get
+```
 GET  http://automics.data.horizon.ac.uk/v1/comic/<id>
 {<data>}
-Set
+```
+
+#### Set
+```
 PUT  http://automics.data.horizon.ac.uk/v1/comic/<id>
 {<data>}
-Delete
+```
+
+#### Delete
+```
 DELETE  http://automics.data.horizon.ac.uk/v1/ comic/<id>
+```
+
 Delete accepted for any comic in the current group.  Deleting a comic deletes all panels in the comic.
 
 
