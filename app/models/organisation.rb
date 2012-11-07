@@ -7,6 +7,8 @@ class Organisation < ActiveRecord::Base
     timestamps
   end
 
+  has_many  :themes
+
   # --- Permissions --- #
 
   def create_permitted?

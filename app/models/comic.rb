@@ -8,6 +8,9 @@ class Comic < ActiveRecord::Base
     timestamps
   end
 
+  belongs_to :group
+  has_many   :panels
+
   # --- Permissions --- #
 
   def create_permitted?

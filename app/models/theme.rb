@@ -7,6 +7,8 @@ class Theme < ActiveRecord::Base
     timestamps
   end
 
+  has_many :resources
+
   # --- Permissions --- #
 
   def create_permitted?

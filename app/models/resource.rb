@@ -10,6 +10,8 @@ class Resource < ActiveRecord::Base
     timestamps
   end
 
+  belongs_to :theme
+
   # --- Permissions --- #
 
   def create_permitted?

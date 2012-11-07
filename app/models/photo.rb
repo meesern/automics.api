@@ -11,6 +11,8 @@ class Photo < ActiveRecord::Base
     timestamps
   end
 
+  belongs_to :group
+
   # --- Permissions --- #
 
   def create_permitted?

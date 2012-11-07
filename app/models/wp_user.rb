@@ -9,6 +9,8 @@ class WpUser < ActiveRecord::Base
     timestamps
   end
 
+  belongs_to :group
+
   # This gives admin rights and an :active state to the first sign-up.
   # Just remove it if you don't want that
   before_create do |user|

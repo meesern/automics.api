@@ -7,6 +7,13 @@ class Group < ActiveRecord::Base
     timestamps
   end
 
+  belongs_to :organisation
+  has_many :wp_users
+  has_many :themes, :through => :organisation
+  has_many :photos
+  has_many :comics
+  has_many :panels, :through => :comics
+
   # --- Permissions --- #
 
   def create_permitted?

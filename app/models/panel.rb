@@ -6,6 +6,12 @@ class Panel < ActiveRecord::Base
     timestamps
   end
 
+  belongs_to :comic
+  has_one  :group, :though => :comic
+  has_many :resorces
+  has_one  :photo
+  has_many :annotations, :through => :photo
+
   # --- Permissions --- #
 
   def create_permitted?

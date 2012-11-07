@@ -11,6 +11,9 @@ class Annotation < ActiveRecord::Base
     timestamps
   end
 
+  belongs_to :photo
+  has_one :group, :through => :photo
+
   # --- Permissions --- #
 
   def create_permitted?
