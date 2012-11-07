@@ -4,12 +4,16 @@
 #RNM Set development and production both to wordpress database initially
 
 development:
-  adapter: mysql
-  encoding: utf8
-  database: wp_automicsii
-  username: wp_automicsii
-  password: 23098cmnl23uisfdoiij
-  socket:   /var/run/mysqld/mysqld.sock
+#  adapter: mysql
+#  encoding: utf8
+#  database: wp_automicsii
+#  username: wp_automicsii
+#  password: 23098cmnl23uisfdoiij
+#  socket:   /var/run/mysqld/mysqld.sock
+  adapter: sqlite3
+  database: db/development.sqlite3
+  pool: 5
+  timeout: 5000
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
