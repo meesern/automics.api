@@ -11,6 +11,8 @@ class Annotation < ActiveRecord::Base
     timestamps
   end
 
+  set_table_name "wp_annotation"
+
   belongs_to :photo
   has_one :group, :through => :photo
 

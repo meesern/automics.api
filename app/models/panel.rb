@@ -6,8 +6,10 @@ class Panel < ActiveRecord::Base
     timestamps
   end
 
+  set_table_name "wp_panel"
+
   belongs_to :comic
-  has_one  :group, :though => :comic
+  has_one  :group, :through => :comic
   has_many :resorces
   has_one  :photo
   has_many :annotations, :through => :photo

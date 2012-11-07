@@ -8,6 +8,8 @@ class Comic < ActiveRecord::Base
     timestamps
   end
 
+  set_table_name "wp_comic"
+
   belongs_to :group
   has_many   :panels
 

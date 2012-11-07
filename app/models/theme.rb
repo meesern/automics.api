@@ -7,6 +7,8 @@ class Theme < ActiveRecord::Base
     timestamps
   end
 
+  set_table_name "wp_theme"
+
   has_many :resources
 
   # --- Permissions --- #

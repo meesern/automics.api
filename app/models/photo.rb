@@ -11,6 +11,8 @@ class Photo < ActiveRecord::Base
     timestamps
   end
 
+  set_table_name "wp_photo"
+
   belongs_to :group
 
   # --- Permissions --- #

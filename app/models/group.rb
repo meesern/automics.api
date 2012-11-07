@@ -7,6 +7,8 @@ class Group < ActiveRecord::Base
     timestamps
   end
 
+  set_table_name "wp_group"
+
   belongs_to :organisation
   has_many :wp_users
   has_many :themes, :through => :organisation

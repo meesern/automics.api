@@ -10,6 +10,8 @@ class Resource < ActiveRecord::Base
     timestamps
   end
 
+  set_table_name "wp_resource"
+
   belongs_to :theme
 
   # --- Permissions --- #

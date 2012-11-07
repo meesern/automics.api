@@ -9,6 +9,8 @@ class WpUser < ActiveRecord::Base
     timestamps
   end
 
+  set_table_name "wp_user"
+
   belongs_to :group
 
   # This gives admin rights and an :active state to the first sign-up.
