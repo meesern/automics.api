@@ -2,61 +2,57 @@ AutomicsApi::Application.routes.draw do
   root :to => 'front#index'
 
   #Group
-  get  '/v1/group'  			=> 'group#index'
-  post '/v1/group'  			=> 'group#create'
-  get  '/v1/group/:name'  		=> 'group#show'
-  post '/v1/group/:name' 		=> 'group#update'
-  delete '/v1/group/:name' 		=> 'group#delete'
+  get  '/v1/group'  			=> 'groups#api_index'
+  post '/v1/group'  			=> 'groups#api_create'
+  get  '/v1/group/:hash'  		=> 'groups#api_show'
+  post '/v1/group/:hash'  		=> 'groups#api_update'
+  delete '/v1/group/:hash' 		=> 'groups#api_delete'
 
   #User
-  get  '/v1/user'  			=> 'user#index'
-  post '/v1/user'  			=> 'user#create'
-  get  '/v1/user/:name'  		=> 'user#show'
-  post '/v1/user/:name' 		=> 'user#update'
-  delete '/v1/user/:name' 		=> 'user#delete'
+  get  '/v1/user'  			=> 'users#api_index'
+  post '/v1/user'  			=> 'users#api_create'
+  get  '/v1/user/:name'  		=> 'users#api_show'
+  post '/v1/user/:name' 		=> 'users#api_update'
+  delete '/v1/user/:name' 		=> 'users#api_delete'
 
   #Organisation
-  get  '/v1/organisation'  		=> 'organisation#index'
-  get  '/v1/organisation/:name'  	=> 'organisation#show'
-
-  #Event
-  get  '/v1/organisation/:org/event'  	=> 'event#index'
-  get  '/v1/event/:id'                	=> 'event#show'
+  get  '/v1/organisation'  		=> 'organisations#api_index'
+  get  '/v1/organisation/:name'  	=> 'organisations#api_show'
 
   #Theme
-  get  '/v1/event/:event/theme'  	=> 'theme#index'
-  get  '/v1/theme/:id'  		=> 'theme#show'
+  get  '/v1/event/:event/theme'  	=> 'themes#api_index'
+  get  '/v1/theme/:id'  		=> 'themes#api_show'
 
   #Resource
-  get  '/v1/resource/:id'  		=> 'resource#show'
+  get  '/v1/resource/:id'  		=> 'resources#api_show'
 
   #Photo
-  get  '/v1/photo'  			=> 'photo#index'
-  post '/v1/photo/' 			=> 'photo#create'
-  get  '/v1/photo/:id'  		=> 'photo#show'
-  post '/v1/photo/:id' 			=> 'photo#update'
-  delete '/v1/photo/:id' 		=> 'photo#delete'
+  get  '/v1/photo'  			=> 'photos#api_index'
+  post '/v1/photo/' 			=> 'photos#api_create'
+  get  '/v1/photo/:id'  		=> 'photos#api_show'
+  post '/v1/photo/:id' 			=> 'photos#api_update'
+  delete '/v1/photo/:id' 		=> 'photos#api_delete'
 
   #Annotation
-  get  '/v1/photo/:id/annotation'  	=> 'annotation#index'
-  post '/v1/photo/:id/annotation' 	=> 'annotation#create'
-  get  '/v1/annotation/:id'  		=> 'annotation#show'
-  post '/v1/annotation/:id' 		=> 'annotation#update'
-  delete '/v1/annotation/:id' 		=> 'annotation#delete'
+  get  '/v1/photo/:id/annotation'  	=> 'annotations#api_index'
+  post '/v1/photo/:id/annotation' 	=> 'annotations#api_create'
+  get  '/v1/annotation/:id'  		=> 'annotations#api_show'
+  post '/v1/annotation/:id' 		=> 'annotations#api_update'
+  delete '/v1/annotation/:id' 		=> 'annotations#api_delete'
 
   #Comic
-  get  '/v1/comic'  			=> 'comic#index'
-  post '/v1/comic'			=> 'comic#create'
-  get  '/v1/comic/:id' 			=> 'comic#show'
-  post '/v1/comic/:id' 			=> 'comic#update'
-  delete '/v1/comic/:id' 		=> 'comic#delete'
+  get  '/v1/comic'  			=> 'comics#api_index'
+  post '/v1/comic'			=> 'comics#api_create'
+  get  '/v1/comic/:id' 			=> 'comics#api_show'
+  post '/v1/comic/:id' 			=> 'comics#api_update'
+  delete '/v1/comic/:id' 		=> 'comics#api_delete'
 
   #Panel
-  get  '/v1/comic/:id/panel'  		=> 'panel#index'
-  post '/v1/comic/:id/panel' 		=> 'panel#create'
-  get  '/v1/panel/:id'  		=> 'panel#show'
-  post '/v1/panel/:id' 			=> 'panel#update'
-  delete '/v1/panel/:id' 		=> 'panel#delete'
+  get  '/v1/comic/:id/panel'  		=> 'panels#api_index'
+  post '/v1/comic/:id/panel' 		=> 'panels#api_create'
+  get  '/v1/panel/:id'  		=> 'panels#api_show'
+  post '/v1/panel/:id' 			=> 'panels#api_update'
+  delete '/v1/panel/:id' 		=> 'panels#api_delete'
 
 
   #get '/v1/dish/:dish/person/:person' => 'api#dish', :qualifier=>'person'

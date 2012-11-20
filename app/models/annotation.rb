@@ -13,8 +13,8 @@ class Annotation < ActiveRecord::Base
 
   set_table_name "wp_annotation"
 
-  belongs_to :photo
-  has_one :group, :through => :photo
+  belongs_to :panel
+  has_one :group, :through => :panel
 
   # --- Permissions --- #
 

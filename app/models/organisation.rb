@@ -10,6 +10,7 @@ class Organisation < ActiveRecord::Base
   set_table_name "wp_organisation"
 
   has_many  :themes
+  has_many  :groups
 
   # --- Permissions --- #
 

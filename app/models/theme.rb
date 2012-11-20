@@ -10,6 +10,7 @@ class Theme < ActiveRecord::Base
   set_table_name "wp_theme"
 
   has_many :resources
+  belongs_to :organisation
 
   # --- Permissions --- #
 

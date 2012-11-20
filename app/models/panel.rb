@@ -10,9 +10,9 @@ class Panel < ActiveRecord::Base
 
   belongs_to :comic
   has_one  :group, :through => :comic
-  has_many :resorces
+  has_many :resources
   has_one  :photo
-  has_many :annotations, :through => :photo
+  has_many :annotations 
 
   # --- Permissions --- #
 

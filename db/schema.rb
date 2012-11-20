@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121107145758) do
+ActiveRecord::Schema.define(:version => 20121120140120) do
 
   create_table "wp_annotation", :force => true do |t|
     t.string   "text"
@@ -21,10 +21,10 @@ ActiveRecord::Schema.define(:version => 20121107145758) do
     t.float    "ypos_percent"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "photo_id"
+    t.integer  "panel_id"
   end
 
-  add_index "wp_annotation", ["photo_id"], :name => "index_wp_annotation_on_photo_id"
+  add_index "wp_annotation", ["panel_id"], :name => "index_wp_annotation_on_panel_id"
 
   create_table "wp_comic", :force => true do |t|
     t.string   "name"
@@ -88,7 +88,10 @@ ActiveRecord::Schema.define(:version => 20121107145758) do
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "organisation_id"
   end
+
+  add_index "wp_theme", ["organisation_id"], :name => "index_wp_theme_on_organisation_id"
 
   create_table "wp_user", :force => true do |t|
     t.string   "crypted_password",          :limit => 40

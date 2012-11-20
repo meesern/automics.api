@@ -4,6 +4,7 @@ class Group < ActiveRecord::Base
 
   fields do
     name :string
+    hash :string  #The hash is the secret key used to index the group
     timestamps
   end
 
@@ -15,6 +16,11 @@ class Group < ActiveRecord::Base
   has_many :photos
   has_many :comics
   has_many :panels, :through => :comics
+
+  def initialize
+    super.initialize
+    self.hash = Digest::SHA1.hexdigest(self.id.to_s + "salty")
+  end
 
   # --- Permissions --- #
 
