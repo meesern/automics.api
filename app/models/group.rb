@@ -3,8 +3,8 @@ class Group < ActiveRecord::Base
   hobo_model # Don't put anything above this
 
   fields do
-    name   :string
-    hashid :string  #The hash is the secret key used to index the group
+    name   :string, :index => true
+    hashid :string, :index => true #The hash is the secret key used to index the group
     timestamps
   end
 
@@ -17,13 +17,23 @@ class Group < ActiveRecord::Base
   has_many :comics
   has_many :panels, :through => :comics
 
+  validates_presence_of :organisation
+
   after_create :set_hashid
+
+  #Fields reported by the API
+  def self.report_field_names
+    "name, hashid"
+  end
   
-  #Don't use the field name hash - SQLite chokes on it!
+  #Don't use thr field name hash - SQLite chokes on it!
   def set_hashid
     self.hashid ||= Digest::SHA1.hexdigest(self.id.to_s + "salty")
     self.save!
-    true
+  end
+
+  def select_fields
+    self.attributes.slice(*Group.report_field_names.split(', '))
   end
 
   # --- Permissions --- #
