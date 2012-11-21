@@ -31,5 +31,5 @@ gem 'mysql'
 #   gem 'webrat'
 # end
 gem "hobo", "= 1.3.2"
-gem "facets"
+#gem "facets"  Facets not compatible with hobo :(
 

@@ -3,8 +3,8 @@ class Group < ActiveRecord::Base
   hobo_model # Don't put anything above this
 
   fields do
-    name :string
-    hash :string  #The hash is the secret key used to index the group
+    name   :string
+    hashid :string  #The hash is the secret key used to index the group
     timestamps
   end
 
@@ -17,9 +17,13 @@ class Group < ActiveRecord::Base
   has_many :comics
   has_many :panels, :through => :comics
 
-  def initialize
-    super.initialize
-    self.hash = Digest::SHA1.hexdigest(self.id.to_s + "salty")
+  after_create :set_hashid
+  
+  #Don't use the field name hash - SQLite chokes on it!
+  def set_hashid
+    self.hashid ||= Digest::SHA1.hexdigest(self.id.to_s + "salty")
+    self.save!
+    true
   end
 
   # --- Permissions --- #

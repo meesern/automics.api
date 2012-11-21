@@ -35,7 +35,6 @@ GEM
       hobo_support (= 1.3.2)
     erubis (2.6.6)
       abstract (>= 1.0.0)
-    facets (2.9.3)
     hobo (1.3.2)
       dryml (= 1.3.2)
       hobo_fields (= 1.3.2)
@@ -89,7 +88,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  facets
   hobo (= 1.3.2)
   mysql
   rails (= 3.0.17)
