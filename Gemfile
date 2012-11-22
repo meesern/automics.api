@@ -1,10 +1,6 @@
 source 'http://rubygems.org'
 
 gem 'rails', '3.0.17'
-
-# Bundle edge Rails instead:
-# gem 'rails', :git => 'git://github.com/rails/rails.git'
-
 gem 'sqlite3'
 gem 'mysql'
 
@@ -23,13 +19,26 @@ gem 'mysql'
 # gem 'nokogiri'
 # gem 'sqlite3-ruby', :require => 'sqlite3'
 # gem 'aws-s3', :require => 'aws/s3'
+gem "hobo", "= 1.3.2"
+#gem "facets"  Facets not compatible with hobo/rails :(
+gem 'carrierwave'
+gem 'rmagick'
+gem 'WikiCreole'
+gem 'rabl'
+gem 'map_by_method'   # Needed by IRB on my mac ubuntu 11 VM for some reason 
+gem 'wirble' 
+gem 'andand'
 
 # Bundle gems for the local environment. Make sure to
 # put test-only gems in this group so their generators
 # and rake tasks are available in development mode:
-# group :development, :test do
-#   gem 'webrat'
-# end
-gem "hobo", "= 1.3.2"
-#gem "facets"  Facets not compatible with hobo :(
+ group :development, :test do
+  gem 'spork'
+  gem 'launchy'
+  gem 'rev' #for watchr
+  gem 'database_cleaner'
+  gem 'cucumber-rails'
+  gem 'steak'
+  gem 'watchr'
+ end
 

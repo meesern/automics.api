@@ -28,7 +28,10 @@ class GroupsController < ApplicationController
 
   def api_create
     begin
-      grp = Group.create(JSON.parse(params['data']))
+      #All groups belong to the default organisation if it's not specified
+      data = {:organisation_id => Organisation.default}.merge(JSON.parse(params['data']))
+      logger.info("Creating group with #{data}")
+      grp = Group.create(data)
       @data = grp.select_fields
       render_api
     rescue

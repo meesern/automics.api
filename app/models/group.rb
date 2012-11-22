@@ -26,7 +26,7 @@ class Group < ActiveRecord::Base
     "name, hashid"
   end
   
-  #Don't use thr field name hash - SQLite chokes on it!
+  #Don't use the field name hash - SQLite chokes on it!
   def set_hashid
     self.hashid ||= Digest::SHA1.hexdigest(self.id.to_s + "salty")
     self.save!

@@ -12,6 +12,12 @@ class Organisation < ActiveRecord::Base
   has_many  :themes
   has_many  :groups
 
+  #Report the default organisation_id - it's the one called 
+  #Automics (or if necessary, the first in the database).
+  def self.default
+    @defid ||= (self.find_by_name('Automics').id || self.first)
+  end
+
   # --- Permissions --- #
 
   def create_permitted?
