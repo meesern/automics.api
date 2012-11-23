@@ -10,7 +10,9 @@ class GroupsController < ApplicationController
   #(requiring it to set the accept header).
   def api_index
     begin
-      @data = Group.select(Group.report_field_names)
+      grps = Group.select(Group.report_field_names)
+      #Switch groups to hashes ready for output
+      @data = grps.map {|grp| grp.attributes}
       render_api
     rescue
       api_exception

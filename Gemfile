@@ -12,7 +12,6 @@ gem 'mysql'
 
 # To use debugger (ruby-debug for Ruby 1.8.7+, ruby-debug19 for Ruby 1.9.2+)
 # gem 'ruby-debug'
-# gem 'ruby-debug19', :require => 'ruby-debug'
 
 # Bundle the extra gems:
 # gem 'bj'
@@ -33,12 +32,18 @@ gem 'andand'
 # put test-only gems in this group so their generators
 # and rake tasks are available in development mode:
  group :development, :test do
+  gem 'debugger'
+  #gem 'linecache19', '~> 0.5.13'
+  #gem 'ruby-debug-base19','~>0.11.26'
+  #gem 'ruby-debug19', :require => 'ruby-debug'
   gem 'spork'
   gem 'launchy'
+  gem 'cucumber-rails'
+  gem 'capybara' 
   gem 'rev' #for watchr
   gem 'database_cleaner'
-  gem 'cucumber-rails'
   gem 'steak'
-  gem 'watchr'
+  gem 'rb-inotify' #for guard-cucumber
+  gem 'guard-cucumber'
  end
 
