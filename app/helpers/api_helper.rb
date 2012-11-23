@@ -11,4 +11,8 @@ module ApiHelper
       render :status => 400, :text => msg
   end
 
+  def render_api
+      render :json => @data
+  end
+
 end

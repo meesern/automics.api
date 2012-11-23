@@ -3,7 +3,7 @@ class Organisation < ActiveRecord::Base
   hobo_model # Don't put anything above this
 
   fields do
-    name :string
+    name :string, :index => true
     timestamps
   end
 
@@ -12,12 +12,21 @@ class Organisation < ActiveRecord::Base
   has_many  :themes
   has_many  :groups
 
+  validates_presence_of :name
+
   #Report the default organisation_id - it's the one called 
   #Automics (or if necessary, the first in the database).
   def self.default
     @defid ||= (self.find_by_name('Automics').id || self.first)
   end
 
+  def self.report_field_names
+    "name, id"
+  end
+
+  def select_fields
+    self.attributes.slice(*Organisation.report_field_names.split(', '))
+  end
   # --- Permissions --- #
 
   def create_permitted?

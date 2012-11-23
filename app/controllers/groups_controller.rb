@@ -33,17 +33,24 @@ class GroupsController < ApplicationController
       #All groups belong to the default organisation if it's not specified
       data = {:organisation_id => Organisation.default}.merge(JSON.parse(params['data']))
       logger.info("Creating group with #{data}")
-      grp = Group.create(data)
-      @data = grp.select_fields
+      @group = Group.create(data)
+      @data = @group.select_fields
       render_api
     rescue
       api_exception
     end
   end
 
-  private
-  def render_api
-      render :json => @data
+  def api_update
+    begin
+      data = JSON.parse(params['data'])
+      @group = Group.find_by_hashid(params[:hash])
+      @group.update_attributes(data)
+      @data = @group.select_fields
+      render_api
+    rescue
+      api_exception
+    end
   end
 
 end

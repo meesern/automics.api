@@ -17,6 +17,7 @@ class Group < ActiveRecord::Base
   has_many :comics
   has_many :panels, :through => :comics
 
+  validates_presence_of :name
   validates_presence_of :organisation
 
   after_create :set_hashid

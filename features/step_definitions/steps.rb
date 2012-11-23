@@ -64,4 +64,7 @@ Then /^Show me the Result$/ do
   showpage(page)
 end
 
-
+Then /^do later$/ do
+  pending # express the regexp above with the code you wish you had
+end
+ 
