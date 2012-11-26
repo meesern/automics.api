@@ -38,12 +38,16 @@ gem 'andand'
   #gem 'ruby-debug19', :require => 'ruby-debug'
   gem 'spork'
   gem 'launchy'
-  gem 'cucumber-rails'
   gem 'capybara' 
   gem 'rev' #for watchr
   gem 'database_cleaner'
   gem 'steak'
-  gem 'rb-inotify' #for guard-cucumber
+  gem 'rb-inotify', :require=>false #for guard-cucumber
+  gem 'rb-fsevent', '~> 0.9.1', :require=>false  #for guard-cucumber on mac
   gem 'guard-cucumber'
+ end
+
+ group :test do 
+  gem 'cucumber-rails'
  end
 
