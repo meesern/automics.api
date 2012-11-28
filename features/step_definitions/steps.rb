@@ -89,6 +89,10 @@ Then /^Show me the Result$/ do
   showpage(page)
 end
 
+Then /^Show me the Response$/ do 
+  p @response.body
+end
+
 Then /^I should get a list of themes$/ do
     resp = parse_page(page.html)
     assert resp[:themes].class == Array

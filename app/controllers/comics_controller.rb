@@ -15,5 +15,49 @@ class ComicsController < ApplicationController
     end
   end
 
+  def api_show
+    begin
+      @data = Comic.find(params[:id]).select_fields
+      render_api
+    rescue
+      api_exception
+    end
+  end
+
+  def api_create
+    begin
+      data = JSON.parse(params['data'])
+      logger.info("Creating comic with #{data}")
+      @comic = Comic.create(data)
+      @data = @comic.select_fields
+      render_api
+    rescue
+      api_exception
+    end
+  end
+
+  def api_update
+    begin
+      data = JSON.parse(params['data'])
+      @comic = Comic.find(params[:id])
+      @comic.update_attributes(data)
+      @data = @comic.select_fields
+      render_api
+    rescue
+      api_exception
+    end
+  end
+
+  def api_delete
+    begin
+      #This needs constraints
+      Comic.destroy(params[:id])
+      @data = true
+      render_api
+    rescue
+      api_exception
+    end
+  end
+
 
 end

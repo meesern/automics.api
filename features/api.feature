@@ -170,6 +170,36 @@ Feature: Provide API
     And  I should get name: Liz fills the Stockings
     And  I should get name: Mel's Bells
 
+  Scenario: I want a particular comic 
+    Given comic Mel's Bells exists
+    When I get endpoint /v1/comic/1
+    Then Show me the Result
+    And  I should get name: Mel's Bells
+
+    #curl --noproxy localhost --request POST --data 'data={"name":"Santa Rich", "description":"Like a ferret up a stove pipe"}' http://localhost:3000/v1/comic
+  Scenario: I make a new comic
+    When I post endpoint /v1/comic with data={"name":"Santa Rich", "description":"Like a ferret up a stove pipe."}
+    Then Show me the Response
+    And  response should have name: Santa Rich
+    And  response should have description: Like a ferret up a stove pipe.
+    
+    #curl --noproxy localhost --request PUT --data 'data={"name":"Mel's Christmas Bells"}' http://localhost:3000/v1/comic/1
+  Scenario: I change the name of a comic
+    Given comic Mel's Bells exists
+    When I post endpoint /v1/comic/1 with data={"name":"Mel's Christmas Bells"}
+    And  I get endpoint /v1/comic/1
+    Then I should get name: Mel's Christmas Bells
+
+    #curl --noproxy localhost --request DELETE http://localhost:3000/v1/comic/1
+  Scenario: I delete a comic
+    Given comic Liz fills the Stockings exists
+    And   comic Mel's Bells exists
+    When I delete endpoint /v1/comic/1 
+    And  I get endpoint /v1/comic
+    Then I should get 1 result
+    And  I should get name: Mel's Bells
+    And  I should not get name: Liz fills the Stockings
+
   #
   # Annotation
   #
