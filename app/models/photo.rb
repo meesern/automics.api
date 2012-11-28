@@ -15,6 +15,12 @@ class Photo < ActiveRecord::Base
 
   belongs_to :group
 
+  def self.report_field_names
+    "description, id, width, height, place"
+  end
+
+  #def select_fields in api_helper
+
   # --- Permissions --- #
 
   def create_permitted?

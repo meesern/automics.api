@@ -1,10 +1,6 @@
 
-Given /^organisation (.+) exists$/ do |org|
-  Organisation.create! :name=>org
-end
-
-Given /^theme (.+) exists$/ do |theme|
-  Theme.create! :name=>theme
+Given /^([^g][^\s]+) (.+) exists$/ do |type, name|
+  eval(type.capitalize).create! :name=>name
 end
 
 Given /^group (.+) exists$/ do |group|
@@ -21,6 +17,16 @@ Given /^resource (.+) belongs to (.+)$/ do |resource, theme_name|
   Resource.create! :name=>resource, :theme=>theme
 end
 
+Given /^photo (.+) belongs to (.+)$/ do |photo, group_name|
+  group = Group.find_by_name(group_name)
+  Photo.create! :description=>photo, :group=>group
+end
+
+Given /^annotation (.+) exists$/ do |annotation|
+  Resource.create! :text=>annotation
+end
+
+#--------------------------------------------------------------
 
 When /^I get endpoint (.+)$/ do |endpoint|
   visit(endpoint)
@@ -28,6 +34,10 @@ end
 
 When /^I post endpoint (.+) with (.+)$/ do |endpoint, data|
   @response = post(endpoint,data)
+end
+
+When /^I delete endpoint (.+)$/ do |endpoint|
+  @response = delete(endpoint)
 end
 
 Then /^response should have ([^ ]+): (.*)$/ do |key, content|
@@ -41,7 +51,7 @@ Then /^response should have a SHA1 hash/ do
   assert pass
 end
 
-Then /^I should get (.+) results$/ do |count|
+Then /^I should get (.+) results?$/ do |count|
   data = parse_page(page.html)
   pass = (data.count == count.to_i)
   showpage(page) unless pass
@@ -91,7 +101,11 @@ Then /^I should get a list of resources$/ do
     assert resp[:resources].length > 0
 end
 
+Then /^I should get the actual photo$/ do
+  pending 
+end
+
 Then /^do later$/ do
   pending # express the regexp above with the code you wish you had
 end
- 
+

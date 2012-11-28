@@ -13,6 +13,15 @@ class Comic < ActiveRecord::Base
   belongs_to :group
   has_many   :panels
 
+  validates_presence_of :name
+
+  #Fields reported by the API
+  def self.report_field_names
+    "name, id, description"
+  end
+
+  #def select_fields in api_helper
+
   # --- Permissions --- #
 
   def create_permitted?

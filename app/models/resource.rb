@@ -20,9 +20,7 @@ class Resource < ActiveRecord::Base
     "name, id, type, image_place, text"
   end
 
-  def select_fields
-    self.attributes.slice(*Resource.report_field_names.split(', '))
-  end
+  #def select_fields in api_helper
 
   # --- Permissions --- #
 

@@ -18,9 +18,7 @@ class Theme < ActiveRecord::Base
     "name, id"
   end
 
-  def select_fields
-    self.attributes.slice(*Theme.report_field_names.split(', '))
-  end
+  #def select_fields in api_helper
 
   # --- Permissions --- #
 

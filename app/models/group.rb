@@ -33,9 +33,7 @@ class Group < ActiveRecord::Base
     self.save!
   end
 
-  def select_fields
-    self.attributes.slice(*Group.report_field_names.split(', '))
-  end
+  #def select_fields in api_helper
 
   # --- Permissions --- #
 
