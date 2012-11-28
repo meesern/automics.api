@@ -16,6 +16,12 @@ class Annotation < ActiveRecord::Base
   belongs_to :panel
   has_one :group, :through => :panel
 
+  #Fields reported by the API
+  def self.report_field_names
+    "id, text, bubble_style, formatting_options, xpos_percent, ypos_percent"
+  end
+
+  #def select_fields in api_helper
   # --- Permissions --- #
 
   def create_permitted?

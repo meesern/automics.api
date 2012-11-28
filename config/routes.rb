@@ -35,8 +35,8 @@ AutomicsApi::Application.routes.draw do
   delete '/v1/photo/:id' 		=> 'photos#api_delete'
 
   #Annotation
-  get  '/v1/panel/:id/annotation'  	=> 'annotations#api_index'
-  post '/v1/panel/:id/annotation' 	=> 'annotations#api_create'
+  get  '/v1/annotation'  	        => 'annotations#api_index'
+  post '/v1/annotation' 	        => 'annotations#api_create'
   get  '/v1/annotation/:id'  		=> 'annotations#api_show'
   post '/v1/annotation/:id' 		=> 'annotations#api_update'
   delete '/v1/annotation/:id' 		=> 'annotations#api_delete'

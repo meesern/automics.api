@@ -242,16 +242,43 @@ Feature: Provide API
     And  I should get id: 2
     And  I should not get id: 1
 
-
   #
   # Annotation
   #
-  #  Scenario: I list all annotations available to me
-  #  Given annotation Wooo! exists
-  #  And   annotation Let's Party exists
-  #  When I get endpoint /v1/annotation
-  #  Then Show me the Result
-  #  And  I should get 2 results
-  #  And  I should get text: Wooo!
-  #  And  I should get text: Let's Party
+  Scenario: I list all annotations available to me
+    Given comic Santa Rich exists
+    And   panel 1 belongs to Santa Rich
+    And   annotation Wooo! belongs to panel 1
+    And   annotation Let's Party belongs to panel 1
+    When I get endpoint /v1/annotation
+    Then Show me the Result
+    And  I should get 2 results
+    And  I should get text: Wooo!
+    And  I should get text: Let's Party
+
+  Scenario: I want a particular annotation 
+    Given comic Santa Rich exists
+    And   panel 1 belongs to Santa Rich
+    And   annotation Wooo! belongs to panel 1
+    And   annotation Let's Party belongs to panel 1
+    When I get endpoint /v1/annotation/1
+    Then Show me the Result
+    And  I should get text: Wooo!
+    
+  Scenario: I make a new annotation
+    When I post endpoint /v1/annotation with data={"text":"Help!"}
+    Then Show me the Response
+    And  response should have id: 1
+    And  response should have text: Help!
+    
+  Scenario: I delete an annotation
+    Given comic Santa Rich exists
+    And   panel 1 belongs to Santa Rich
+    And   annotation Wooo! belongs to panel 1
+    And   annotation Let's Party belongs to panel 1
+    When I delete endpoint /v1/annotation/2
+    And  I get endpoint /v1/annotation
+    Then I should get 1 result
+    And  I should get text: Wooo!
+    And  I should not get text: Let's Party
 

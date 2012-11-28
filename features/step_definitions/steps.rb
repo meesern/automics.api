@@ -27,8 +27,9 @@ Given /^panel (.+) belongs to (.+)$/ do |panel, comic_name|
   Panel.create! :id=>panel.to_i, :comic=>comic
 end
 
-Given /^annotation (.+) exists$/ do |annotation|
-  Resource.create! :text=>annotation
+Given /^annotation (.+) belongs to panel (.+)$/ do |annotation, panel_id|
+  panel = Panel.find(panel_id.to_i)
+  Annotation.create! :text=>annotation, :id=>panel
 end
 
 #--------------------------------------------------------------
