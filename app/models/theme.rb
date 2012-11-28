@@ -12,6 +12,16 @@ class Theme < ActiveRecord::Base
   has_many :resources
   belongs_to :organisation
 
+  validates_presence_of :name
+
+  def self.report_field_names
+    "name, id"
+  end
+
+  def select_fields
+    self.attributes.slice(*Theme.report_field_names.split(', '))
+  end
+
   # --- Permissions --- #
 
   def create_permitted?

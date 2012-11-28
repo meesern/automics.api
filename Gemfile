@@ -42,6 +42,8 @@ gem 'andand'
   gem 'rev' #for watchr
   gem 'database_cleaner'
   gem 'steak'
+  #gem 'ruby_gntp', :require=>false #for guard: has dependancy problems with ffi
+  #gem 'growl',     :require=>false #for guard: ditto
   gem 'rb-inotify', :require=>false #for guard-cucumber
   gem 'rb-fsevent', '~> 0.9.1', :require=>false  #for guard-cucumber on mac
   gem 'guard-cucumber'

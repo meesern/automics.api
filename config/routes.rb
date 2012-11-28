@@ -17,13 +17,14 @@ AutomicsApi::Application.routes.draw do
 
   #Organisation
   get  '/v1/organisation'  		=> 'organisations#api_index'
-  get  '/v1/organisation/:name'  	=> 'organisations#api_show'
+  get  '/v1/organisation/:id'  	        => 'organisations#api_show'
 
   #Theme
-  get  '/v1/event/:event/theme'  	=> 'themes#api_index'
+  get  '/v1/organisation/:id/theme'  	=> 'themes#api_index'
   get  '/v1/theme/:id'  		=> 'themes#api_show'
 
   #Resource
+  get  '/v1/theme/:id/resource'  	=> 'resources#api_index'
   get  '/v1/resource/:id'  		=> 'resources#api_show'
 
   #Photo

@@ -18,7 +18,9 @@ class OrganisationsController < ApplicationController
 
   def api_show
     begin
-      @data = Organisation.find_by_hashid(params[:name]).select_fields
+      @org = Organisation.find(params[:id])
+      @data = @org.select_fields
+      @data[:themes] = @org.themes.map {|th| th.select_fields}
       render_api
     rescue
       api_exception

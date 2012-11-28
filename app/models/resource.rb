@@ -14,6 +14,16 @@ class Resource < ActiveRecord::Base
 
   belongs_to :theme
 
+  validates_presence_of :name
+
+  def self.report_field_names
+    "name, id, type, image_place, text"
+  end
+
+  def select_fields
+    self.attributes.slice(*Resource.report_field_names.split(', '))
+  end
+
   # --- Permissions --- #
 
   def create_permitted?
