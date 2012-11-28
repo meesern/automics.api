@@ -22,6 +22,11 @@ Given /^photo (.+) belongs to (.+)$/ do |photo, group_name|
   Photo.create! :description=>photo, :group=>group
 end
 
+Given /^panel (.+) belongs to (.+)$/ do |panel, comic_name|
+  comic = Comic.find_by_name(comic_name)
+  Panel.create! :id=>panel.to_i, :comic=>comic
+end
+
 Given /^annotation (.+) exists$/ do |annotation|
   Resource.create! :text=>annotation
 end

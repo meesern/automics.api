@@ -14,6 +14,13 @@ class Panel < ActiveRecord::Base
   has_one  :photo
   has_many :annotations 
 
+  #Fields reported by the API
+  def self.report_field_names
+    "id"
+  end
+
+  #def select_fields in api_helper
+
   # --- Permissions --- #
 
   def create_permitted?

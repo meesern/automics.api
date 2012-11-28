@@ -201,6 +201,49 @@ Feature: Provide API
     And  I should not get name: Liz fills the Stockings
 
   #
+  # Panel
+  #
+  Scenario: I list all panels in my comic
+    Given comic Santa Rich exists
+    And   comic Mel's Bells exists
+    And   panel 1 belongs to Santa Rich
+    And   panel 2 belongs to Santa Rich
+    And   panel 3 belongs to Mel's Bells
+    And   panel 4 belongs to Santa Rich
+    When I get endpoint /v1/comic/1/panel
+    Then Show me the Result
+    And  I should get 3 results
+    And  I should get id: 1
+    And  I should get id: 2
+    And  I should not get id: 3
+    And  I should get id: 4
+
+  Scenario: I want a particular panel 
+    Given comic Mel's Bells exists
+    And   panel 1 belongs to Mel's Bells
+    When I get endpoint /v1/panel/1
+    Then  I should get id: 1
+    
+    #curl --noproxy localhost --request POST --data 'data={}' http://localhost:3000/v1/comic/1/panel
+  Scenario: I make a new panel
+    Given comic Santa Rich exists
+    When I post endpoint /v1/comic/1/panel with data={}
+    Then Show me the Response
+    And  response should have id: 1
+    
+    #curl --noproxy localhost --request DELETE http://localhost:3000/v1/panel/1
+  Scenario: I delete a comic
+    Given comic Santa Rich exists
+    And   panel 1 belongs to Santa Rich
+    And   panel 2 belongs to Santa Rich
+    When I delete endpoint /v1/panel/1
+    And  I get endpoint /v1/comic/1/panel
+    Then I should get 1 result
+    And  I should get id: 2
+    And  I should not get id: 1
+
+
+  #
   # Annotation
   #
   #  Scenario: I list all annotations available to me
