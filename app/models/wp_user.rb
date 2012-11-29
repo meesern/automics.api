@@ -3,13 +3,21 @@ class WpUser < ActiveRecord::Base
   hobo_user_model # Don't put anything above this
 
   fields do
-    name          :string, :required, :unique
-    email_address :email_address, :login => true
+    user_login    :string, :required, :unique
+    user_email    :email_address, :login => true
+    user_pass     :string
+    user_nicename :string
+    user_url      :string
+    user_registered :datetime
+    user_activation_key :string
+    user_status   :integer
+    display_name  :string
+    spam          :boolean, :default => false
+    deleted       :boolean, :default => false
     administrator :boolean, :default => false
-    timestamps
   end
 
-  set_table_name "wp_user"
+  set_table_name "wp_users"
 
   belongs_to :group
 
@@ -37,7 +45,7 @@ class WpUser < ActiveRecord::Base
     create :invite,
            :available_to => "acting_user if acting_user.administrator?",
            :subsite => "admin",
-           :params => [:name, :email_address],
+           :params => [:user_login, :user_email],
            :new_key => true,
            :become => :invited do
        WpUserMailer.invite(self, lifecycle.key).deliver
