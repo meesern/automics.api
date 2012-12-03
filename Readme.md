@@ -9,7 +9,7 @@ The Automics II API provides the interface between the mobile applications that 
 The Automics II server implements a REST API over the following objects of interest...
 
 ```
-Object	      | Description	                           | Example	                      | Index
+Object	      | Description                                | Example	                      | Index
 ==============+============================================+==================================+============
 Group	      | The group among which the comic is shared. | Steve’s trip to Alton Towers     | Group Name
 User	      | A user of the service.	                   | Steve                            | User Name  
@@ -19,7 +19,7 @@ Resource      | An themed image or Text.                   | Logo, Frame, Page, 
 Event	      | An organisation specific group.	           | FA Cup, New Years Eve            | Id
 Photo	      | A photograph or other image                |                                  | Id
 Annotation    | A caption to be placed on an image.        | “Come on you Reds!”              | Id
-Panel	      | A styled editable image with annotations.  | Steve cheering + annotations & border. | Id
+Panel	      | A styled editable image with annotations.  | Steve cheering + annotations & border| Id
 Comic	      | A comic strip.                             | Telekinetic Steve scores a goal! | Id
 ```
 
@@ -53,7 +53,7 @@ In general API requests follow the REST CRUD (Create, Retrieve, Update, Delete) 
 
 All requests are built from URLs which follow the format:
 
-http://<hostname>/<api-major-version>/<object>[/<qualifiers>]
+`http://<hostname>/<api-major-version>/<object>[/<qualifiers>]`
 
 Concretely all request URL’s begin with the sequence:
 
