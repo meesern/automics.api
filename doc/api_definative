@@ -1,0 +1,311 @@
+Feature: Provide API
+  In order to have information usable by a mobile app
+  As a mobile phone
+  I want to retrieve (and submit) information
+
+  #Note that because this documents an API, features include url's that would
+  #not normally be appropriate for a cucumber feature specification
+  Background: It's Christmas           # features/api.feature:9
+    Given organisation Automics exists # features/step_definitions/steps.rb:2
+    And theme Christmas exists         # features/step_definitions/steps.rb:2
+
+  Scenario: I list all groups available to me # features/api.feature:13
+    Given group Jonty's House exists          # features/step_definitions/steps.rb:6
+    And group Christmas party exists          # features/step_definitions/steps.rb:6
+    When I get endpoint /v1/group             # features/step_definitions/steps.rb:37
+    Then Show me the Result                   # features/step_definitions/steps.rb:94
+      [{"hashid":"8fc8a0ed74ea82888c7a37b0f62a105b83d07a12","name":"Jonty's House"},{"hashid":"94c32985a55fa443386754123c617eb3570d55b5","name":"Christmas party"}]
+    And I should get 2 results                # features/step_definitions/steps.rb:60
+    And I should get name: Jonty's House      # features/step_definitions/steps.rb:86
+    And I should get name: Christmas party    # features/step_definitions/steps.rb:86
+    And I should get a SHA1 hash              # features/step_definitions/steps.rb:67
+
+  Scenario: I want a particular group                                      # features/api.feature:23
+    Given group Jonty's House exists                                       # features/step_definitions/steps.rb:6
+    And group Christmas party exists                                       # features/step_definitions/steps.rb:6
+    When I get endpoint /v1/group/94c32985a55fa443386754123c617eb3570d55b5 # features/step_definitions/steps.rb:37
+    Then Show me the Result                                                # features/step_definitions/steps.rb:94
+      {"name":"Christmas party","hashid":"94c32985a55fa443386754123c617eb3570d55b5"}
+    And I should get name: Christmas party                                 # features/step_definitions/steps.rb:86
+
+  #curl --noproxy localhost --request POST --data 'data={"name":"Jonty's Groove"}' http://localhost:3000/v1/group
+  Scenario: I want a new group                                         # features/api.feature:31
+    When I post endpoint /v1/group with data={"name":"Jonty's Groove"} # features/step_definitions/steps.rb:41
+    Then Show me the Result                                            # features/step_definitions/steps.rb:94
+      
+    Then response should have name: Jonty's Groove                     # features/step_definitions/steps.rb:49
+    And response should have a SHA1 hash                               # features/step_definitions/steps.rb:53
+
+  #curl --noproxy localhost --request PUT --data 'data={"name":"A quiet night"}' http://localhost:3000/v1/group/94c32985a55fa443386754123c617eb3570d55b5
+  Scenario: I change the name of a group                                                                       # features/api.feature:38
+    Given group Jonty's House exists                                                                           # features/step_definitions/steps.rb:6
+    And group Christmas party exists                                                                           # features/step_definitions/steps.rb:6
+    When I post endpoint /v1/group/94c32985a55fa443386754123c617eb3570d55b5 with data={"name":"A quiet night"} # features/step_definitions/steps.rb:41
+    And I get endpoint /v1/group/94c32985a55fa443386754123c617eb3570d55b5                                      # features/step_definitions/steps.rb:37
+    Then I should get name: A quiet night                                                                      # features/step_definitions/steps.rb:86
+
+  Scenario: I delete (myself from) a group # features/api.feature:45
+    Then do later                          # features/step_definitions/steps.rb:118
+      TODO (Cucumber::Pending)
+      ./features/step_definitions/steps.rb:119:in `/^do later$/'
+      features/api.feature:46:in `Then do later'
+
+  #
+  # Organisations
+  #
+  Scenario: I list all organisations available to me # features/api.feature:51
+    Given organisation Alton Towers exists           # features/step_definitions/steps.rb:2
+    And organisation Nottingham Forest exists        # features/step_definitions/steps.rb:2
+    When I get endpoint /v1/organisation             # features/step_definitions/steps.rb:37
+    Then Show me the Result                          # features/step_definitions/steps.rb:94
+      [{"id":1,"name":"Automics"},{"id":2,"name":"Alton Towers"},{"id":3,"name":"Nottingham Forest"}]
+    And I should get 3 results                       # features/step_definitions/steps.rb:60
+    And I should get name: Automics                  # features/step_definitions/steps.rb:86
+    And I should get id: 1                           # features/step_definitions/steps.rb:86
+    And I should get name: Alton Towers              # features/step_definitions/steps.rb:86
+    And I should get name: Nottingham Forest         # features/step_definitions/steps.rb:86
+
+  Scenario: I view a particular organisation # features/api.feature:62
+    Given organisation Alton Towers exists   # features/step_definitions/steps.rb:2
+    And theme Christmas belongs to Automics  # features/step_definitions/steps.rb:10
+    When I get endpoint /v1/organisation/1   # features/step_definitions/steps.rb:37
+    Then Show me the Result                  # features/step_definitions/steps.rb:94
+      {"name":"Automics","id":1,"themes":[{"name":"Christmas","id":2}]}
+    And I should get name: Automics          # features/step_definitions/steps.rb:86
+    And I should not get name: Alton Towers  # features/step_definitions/steps.rb:90
+    And I should get id: 1                   # features/step_definitions/steps.rb:86
+    And I should get a list of themes        # features/step_definitions/steps.rb:102
+
+  #
+  # Themes
+  #
+  Scenario: I list all themes belonging to an organisation # features/api.feature:75
+    Given organisation Alton Towers exists                 # features/step_definitions/steps.rb:2
+    And theme Christmas belongs to Automics                # features/step_definitions/steps.rb:10
+    And theme House Party belongs to Automics              # features/step_definitions/steps.rb:10
+    And theme Log Flume belongs to Alton Towers            # features/step_definitions/steps.rb:10
+    When I get endpoint /v1/organisation/1/theme           # features/step_definitions/steps.rb:37
+    Then Show me the Result                                # features/step_definitions/steps.rb:94
+      [{"name":"Christmas","id":2},{"name":"House Party","id":3}]
+    And I should get 2 results                             # features/step_definitions/steps.rb:60
+    And I should get name: Christmas                       # features/step_definitions/steps.rb:86
+    And I should get name: House Party                     # features/step_definitions/steps.rb:86
+    And I should not get name: Log Flume                   # features/step_definitions/steps.rb:90
+
+  Scenario: I get a particular Theme            # features/api.feature:87
+    Given theme Christmas belongs to Automics   # features/step_definitions/steps.rb:10
+    And resource Santa Hat belongs to Christmas # features/step_definitions/steps.rb:15
+    When I get endpoint /v1/theme/1             # features/step_definitions/steps.rb:37
+    Then Show me the Result                     # features/step_definitions/steps.rb:94
+      {"name":"Christmas","id":1,"resources":[{"name":"Santa Hat","id":1,"type":null,"image_place":null,"text":null}]}
+    And I should get name: Christmas            # features/step_definitions/steps.rb:86
+    And I should get a list of resources        # features/step_definitions/steps.rb:108
+
+  #
+  # Resources
+  #
+  Scenario: I list all resources belonging to a theme # features/api.feature:98
+    Given theme Christmas belongs to Automics         # features/step_definitions/steps.rb:10
+    And resource Santa Hat belongs to Christmas       # features/step_definitions/steps.rb:15
+    And resource Snow belongs to Christmas            # features/step_definitions/steps.rb:15
+    When I get endpoint /v1/theme/1/resource          # features/step_definitions/steps.rb:37
+    Then Show me the Result                           # features/step_definitions/steps.rb:94
+      [{"name":"Santa Hat","id":1,"type":null,"image_place":null,"text":null},{"name":"Snow","id":2,"type":null,"image_place":null,"text":null}]
+    And I should get 2 results                        # features/step_definitions/steps.rb:60
+    And I should get name: Santa Hat                  # features/step_definitions/steps.rb:86
+    And I should get name: Snow                       # features/step_definitions/steps.rb:86
+
+  Scenario: I get a particular Resource         # features/api.feature:108
+    Given theme Christmas belongs to Automics   # features/step_definitions/steps.rb:10
+    And resource Snow belongs to Christmas      # features/step_definitions/steps.rb:15
+    And resource Santa Hat belongs to Christmas # features/step_definitions/steps.rb:15
+    When I get endpoint /v1/resource/1          # features/step_definitions/steps.rb:37
+    Then Show me the Result                     # features/step_definitions/steps.rb:94
+      {"name":"Snow","id":1,"type":null,"image_place":null,"text":null}
+    And I should get name: Snow                 # features/step_definitions/steps.rb:86
+    And I should not get name: Santa Hat        # features/step_definitions/steps.rb:90
+
+  #
+  # Photo
+  #
+  Scenario: I list all photos available to me       # features/api.feature:120
+    Given group Jonty's House exists                # features/step_definitions/steps.rb:6
+    And photo Rich and Mel belongs to Jonty's House # features/step_definitions/steps.rb:20
+    And photo Liz belongs to Jonty's House          # features/step_definitions/steps.rb:20
+    When I get endpoint /v1/photo                   # features/step_definitions/steps.rb:37
+    Then Show me the Result                         # features/step_definitions/steps.rb:94
+      [{"description":"Rich and Mel","height":null,"id":1,"place":null,"width":null},{"description":"Liz","height":null,"id":2,"place":null,"width":null}]
+    And I should get 2 results                      # features/step_definitions/steps.rb:60
+    And I should get description: Rich and Mel      # features/step_definitions/steps.rb:86
+    And I should get description: Liz               # features/step_definitions/steps.rb:86
+
+  Scenario: I want a particular photo               # features/api.feature:130
+    Given group Jonty's House exists                # features/step_definitions/steps.rb:6
+    And photo Rich and Mel belongs to Jonty's House # features/step_definitions/steps.rb:20
+    When I get endpoint /v1/photo/1                 # features/step_definitions/steps.rb:37
+    Then Show me the Result                         # features/step_definitions/steps.rb:94
+      {"description":"Rich and Mel","id":1,"width":null,"height":null,"place":null}
+    And I should get description: Rich and Mel      # features/step_definitions/steps.rb:86
+
+  #curl --noproxy localhost --request POST --data 'data={"description":"Look at 'em go!"}' http://localhost:3000/v1/photo
+  Scenario: I share a new photo                                                # features/api.feature:138
+    When I post endpoint /v1/photo with data={"description":"Look at 'em go!"} # features/step_definitions/steps.rb:41
+    Then do later                                                              # features/step_definitions/steps.rb:118
+      TODO (Cucumber::Pending)
+      ./features/step_definitions/steps.rb:119:in `/^do later$/'
+      features/api.feature:140:in `Then do later'
+
+  #curl --noproxy localhost --request PUT --data 'data={"description":"Rich, Liz and Mel"}' http://localhost:3000/v1/photo/1
+  Scenario: I change the description of a photo                                    # features/api.feature:143
+    Given group Jonty's House exists                                               # features/step_definitions/steps.rb:6
+    And photo Rich and Mel belongs to Jonty's House                                # features/step_definitions/steps.rb:20
+    When I post endpoint /v1/photo/1 with data={"description":"Rich, Liz and Mel"} # features/step_definitions/steps.rb:41
+    And I get endpoint /v1/photo/1                                                 # features/step_definitions/steps.rb:37
+    Then I should get description: Rich, Liz and Mel                               # features/step_definitions/steps.rb:86
+
+  #curl --noproxy localhost --request DELETE http://localhost:3000/v1/photo/1
+  Scenario: I delete a photo                        # features/api.feature:151
+    Given group Jonty's House exists                # features/step_definitions/steps.rb:6
+    And photo Liz belongs to Jonty's House          # features/step_definitions/steps.rb:20
+    And photo Rich and Mel belongs to Jonty's House # features/step_definitions/steps.rb:20
+    When I delete endpoint /v1/photo/1              # features/step_definitions/steps.rb:45
+    And I get endpoint /v1/photo                    # features/step_definitions/steps.rb:37
+    Then I should get 1 result                      # features/step_definitions/steps.rb:60
+    And I should get description: Rich and Mel      # features/step_definitions/steps.rb:86
+    And I should not get description: Liz           # features/step_definitions/steps.rb:90
+
+  #
+  # Comic
+  #
+  Scenario: I list all comics available to me      # features/api.feature:164
+    Given comic Liz fills the Stockings exists     # features/step_definitions/steps.rb:2
+    And comic Mel's Bells exists                   # features/step_definitions/steps.rb:2
+    When I get endpoint /v1/comic                  # features/step_definitions/steps.rb:37
+    Then Show me the Result                        # features/step_definitions/steps.rb:94
+      [{"description":null,"id":1,"name":"Liz fills the Stockings"},{"description":null,"id":2,"name":"Mel's Bells"}]
+    And I should get 2 results                     # features/step_definitions/steps.rb:60
+    And I should get name: Liz fills the Stockings # features/step_definitions/steps.rb:86
+    And I should get name: Mel's Bells             # features/step_definitions/steps.rb:86
+
+  Scenario: I want a particular comic  # features/api.feature:173
+    Given comic Mel's Bells exists     # features/step_definitions/steps.rb:2
+    When I get endpoint /v1/comic/1    # features/step_definitions/steps.rb:37
+    Then Show me the Result            # features/step_definitions/steps.rb:94
+      {"name":"Mel's Bells","id":1,"description":null}
+    And I should get name: Mel's Bells # features/step_definitions/steps.rb:86
+
+  #curl --noproxy localhost --request POST --data 'data={"name":"Santa Rich", "description":"Like a ferret up a stove pipe"}' http://localhost:3000/v1/comic
+  Scenario: I make a new comic                                                                                     # features/api.feature:180
+    When I post endpoint /v1/comic with data={"name":"Santa Rich", "description":"Like a ferret up a stove pipe."} # features/step_definitions/steps.rb:41
+"{\"name\":\"Santa Rich\",\"id\":1,\"description\":\"Like a ferret up a stove pipe.\"}"
+    Then Show me the Response                                                                                      # features/step_definitions/steps.rb:98
+    And response should have name: Santa Rich                                                                      # features/step_definitions/steps.rb:49
+    And response should have description: Like a ferret up a stove pipe.                                           # features/step_definitions/steps.rb:49
+
+  #curl --noproxy localhost --request PUT --data 'data={"name":"Mel's Christmas Bells"}' http://localhost:3000/v1/comic/1
+  Scenario: I change the name of a comic                                        # features/api.feature:187
+    Given comic Mel's Bells exists                                              # features/step_definitions/steps.rb:2
+    When I post endpoint /v1/comic/1 with data={"name":"Mel's Christmas Bells"} # features/step_definitions/steps.rb:41
+    And I get endpoint /v1/comic/1                                              # features/step_definitions/steps.rb:37
+    Then I should get name: Mel's Christmas Bells                               # features/step_definitions/steps.rb:86
+
+  #curl --noproxy localhost --request DELETE http://localhost:3000/v1/comic/1
+  Scenario: I delete a comic                           # features/api.feature:194
+    Given comic Liz fills the Stockings exists         # features/step_definitions/steps.rb:2
+    And comic Mel's Bells exists                       # features/step_definitions/steps.rb:2
+    When I delete endpoint /v1/comic/1                 # features/step_definitions/steps.rb:45
+    And I get endpoint /v1/comic                       # features/step_definitions/steps.rb:37
+    Then I should get 1 result                         # features/step_definitions/steps.rb:60
+    And I should get name: Mel's Bells                 # features/step_definitions/steps.rb:86
+    And I should not get name: Liz fills the Stockings # features/step_definitions/steps.rb:90
+
+  #
+  # Panel
+  #
+  Scenario: I list all panels in my comic # features/api.feature:206
+    Given comic Santa Rich exists         # features/step_definitions/steps.rb:2
+    And comic Mel's Bells exists          # features/step_definitions/steps.rb:2
+    And panel 1 belongs to Santa Rich     # features/step_definitions/steps.rb:25
+    And panel 2 belongs to Santa Rich     # features/step_definitions/steps.rb:25
+    And panel 3 belongs to Mel's Bells    # features/step_definitions/steps.rb:25
+    And panel 4 belongs to Santa Rich     # features/step_definitions/steps.rb:25
+    When I get endpoint /v1/comic/1/panel # features/step_definitions/steps.rb:37
+    Then Show me the Result               # features/step_definitions/steps.rb:94
+      [{"id":1},{"id":2},{"id":4}]
+    And I should get 3 results            # features/step_definitions/steps.rb:60
+    And I should get id: 1                # features/step_definitions/steps.rb:86
+    And I should get id: 2                # features/step_definitions/steps.rb:86
+    And I should not get id: 3            # features/step_definitions/steps.rb:90
+    And I should get id: 4                # features/step_definitions/steps.rb:86
+
+  Scenario: I want a particular panel  # features/api.feature:221
+    Given comic Mel's Bells exists     # features/step_definitions/steps.rb:2
+    And panel 1 belongs to Mel's Bells # features/step_definitions/steps.rb:25
+    When I get endpoint /v1/panel/1    # features/step_definitions/steps.rb:37
+    Then I should get id: 1            # features/step_definitions/steps.rb:86
+
+  #curl --noproxy localhost --request POST --data 'data={}' http://localhost:3000/v1/comic/1/panel
+  Scenario: I make a new panel                          # features/api.feature:228
+    Given comic Santa Rich exists                       # features/step_definitions/steps.rb:2
+    When I post endpoint /v1/comic/1/panel with data={} # features/step_definitions/steps.rb:41
+"{\"id\":1}"
+    Then Show me the Response                           # features/step_definitions/steps.rb:98
+    And response should have id: 1                      # features/step_definitions/steps.rb:49
+
+  #curl --noproxy localhost --request DELETE http://localhost:3000/v1/panel/1
+  Scenario: I delete a comic             # features/api.feature:235
+    Given comic Santa Rich exists        # features/step_definitions/steps.rb:2
+    And panel 1 belongs to Santa Rich    # features/step_definitions/steps.rb:25
+    And panel 2 belongs to Santa Rich    # features/step_definitions/steps.rb:25
+    When I delete endpoint /v1/panel/1   # features/step_definitions/steps.rb:45
+    And I get endpoint /v1/comic/1/panel # features/step_definitions/steps.rb:37
+    Then I should get 1 result           # features/step_definitions/steps.rb:60
+    And I should get id: 2               # features/step_definitions/steps.rb:86
+    And I should not get id: 1           # features/step_definitions/steps.rb:90
+
+  #
+  # Annotation
+  #
+  Scenario: I list all annotations available to me # features/api.feature:248
+    Given comic Santa Rich exists                  # features/step_definitions/steps.rb:2
+    And panel 1 belongs to Santa Rich              # features/step_definitions/steps.rb:25
+    And annotation Wooo! belongs to panel 1        # features/step_definitions/steps.rb:30
+    And annotation Let's Party belongs to panel 1  # features/step_definitions/steps.rb:30
+    When I get endpoint /v1/annotation             # features/step_definitions/steps.rb:37
+    Then Show me the Result                        # features/step_definitions/steps.rb:94
+      [{"bubble_style":null,"formatting_options":null,"id":1,"text":"Wooo!","xpos_percent":null,"ypos_percent":null},{"bubble_style":null,"formatting_options":null,"id":2,"text":"Let's Party","xpos_percent":null,"ypos_percent":null}]
+    And I should get 2 results                     # features/step_definitions/steps.rb:60
+    And I should get text: Wooo!                   # features/step_definitions/steps.rb:86
+    And I should get text: Let's Party             # features/step_definitions/steps.rb:86
+
+  Scenario: I want a particular annotation        # features/api.feature:259
+    Given comic Santa Rich exists                 # features/step_definitions/steps.rb:2
+    And panel 1 belongs to Santa Rich             # features/step_definitions/steps.rb:25
+    And annotation Wooo! belongs to panel 1       # features/step_definitions/steps.rb:30
+    And annotation Let's Party belongs to panel 1 # features/step_definitions/steps.rb:30
+    When I get endpoint /v1/annotation/1          # features/step_definitions/steps.rb:37
+    Then Show me the Result                       # features/step_definitions/steps.rb:94
+      {"id":1,"text":"Wooo!","bubble_style":null,"formatting_options":null,"xpos_percent":null,"ypos_percent":null}
+    And I should get text: Wooo!                  # features/step_definitions/steps.rb:86
+
+  Scenario: I make a new annotation                                # features/api.feature:268
+    When I post endpoint /v1/annotation with data={"text":"Help!"} # features/step_definitions/steps.rb:41
+"{\"id\":1,\"text\":\"Help!\",\"bubble_style\":null,\"formatting_options\":null,\"xpos_percent\":null,\"ypos_percent\":null}"
+    Then Show me the Response                                      # features/step_definitions/steps.rb:98
+    And response should have id: 1                                 # features/step_definitions/steps.rb:49
+    And response should have text: Help!                           # features/step_definitions/steps.rb:49
+
+  Scenario: I delete an annotation                # features/api.feature:274
+    Given comic Santa Rich exists                 # features/step_definitions/steps.rb:2
+    And panel 1 belongs to Santa Rich             # features/step_definitions/steps.rb:25
+    And annotation Wooo! belongs to panel 1       # features/step_definitions/steps.rb:30
+    And annotation Let's Party belongs to panel 1 # features/step_definitions/steps.rb:30
+    When I delete endpoint /v1/annotation/2       # features/step_definitions/steps.rb:45
+    And I get endpoint /v1/annotation             # features/step_definitions/steps.rb:37
+    Then I should get 1 result                    # features/step_definitions/steps.rb:60
+    And I should get text: Wooo!                  # features/step_definitions/steps.rb:86
+    And I should not get text: Let's Party        # features/step_definitions/steps.rb:90
+
+29 scenarios (2 pending, 27 passed)
+241 steps (2 pending, 239 passed)
+0m7.784s

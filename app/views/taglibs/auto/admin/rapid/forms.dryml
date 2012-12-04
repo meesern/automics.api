@@ -14,7 +14,7 @@
 <def tag="invite-form" for="WpUser">
   <form lifecycle="invite" merge param="default">
     <error-messages param/>
-    <field-list fields="name, email_address" param/>
+    <field-list fields="user_login, user_email" param/>
     <div param="actions">
       <submit label="#{ht 'wp_user.actions.invite', :default=>['Invite']}" param/><or-cancel param="cancel"/>
     </div>
