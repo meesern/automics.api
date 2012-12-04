@@ -3,8 +3,10 @@ Feature: Provide API
   As a mobile phone
   I want to retrieve (and submit) information
   
-  #Note that because this documents an API, features include url's that would 
-  #not normally be appropriate for a cucumber feature specification
+  #Host is http://automicsapi.wp.horizon.ac.uk
+  #
+  #Note that because these features documents a API, features include url's that 
+  #would not normally be appropriate for a cucumber specification
 
   Background: It's Christmas
     Given organisation Automics exists
