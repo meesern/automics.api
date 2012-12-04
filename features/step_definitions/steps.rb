@@ -116,6 +116,7 @@ Then /^I should get the actual photo$/ do
 end
 
 Then /^do later$/ do
-  pending # express the regexp above with the code you wish you had
+  #This step is still unimplemented
+  pending 
 end
 

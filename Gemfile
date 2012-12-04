@@ -47,6 +47,7 @@ gem 'andand'
   gem 'rb-inotify', :require=>false #for guard-cucumber
   gem 'rb-fsevent', '~> 0.9.1', :require=>false  #for guard-cucumber on mac
   gem 'guard-cucumber'
+  gem 'syntax'
  end
 
  group :test do 

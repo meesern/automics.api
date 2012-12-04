@@ -6,10 +6,20 @@
     <header class="content-header">
       <h1>Welcome to <app-name/></h1>
       <section class="welcome-message">
-        <h3>Congratulations! Your Hobo Rails App is up and running</h3>
+        <h3>API</h3>
+        <p>
+          You have found your way to the Automics II Project API Back End.
+          <a href='http://automicsii.wp.horizon.ac.uk/'>Automics II</a> is a 
+          <a href='http://www.horizon.ac.uk/'>Horizon</a> project to allow the mobile creation and sharing of group oriented personal comics.
+        </p>
         <ul>
-          <li>To customise this page: edit app/views/front/index.dryml</li>
+          <li>This back end allows the raw manipulation of the comic object model.</li>
+          <li>The typical interaction is through mobile and web apps via a REST API.</li>
+          <li>Source code can be found at github <a href='https://github.com/meesern/automics_api'>here</a>.</li>
         </ul>
+
+        <h3>Definative API documentation can be found...</h3>
+        <p><a href='api_definative.html'>here</a>.</p>
 
         <% if WpUser.count == 0 -%>
           <h3 style="margin-top: 20px;">There are no user accounts - please provide the details of the site administrator</h3>
