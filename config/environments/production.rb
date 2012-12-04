@@ -46,4 +46,10 @@ AutomicsApi::Application.configure do
 
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
+
+  #RNM - Fix for relative route not enough to make it work though 
+  #config.action_controller.relative_url_root = '/api'
+  #config.action_controller.asset_path = '/api%s'
+
+
 end
