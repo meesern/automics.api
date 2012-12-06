@@ -335,7 +335,7 @@
           </header>
 
           <section param="content-body">
-            <field-list fields="hashid, organisation" param/>
+            <field-list fields="hashid, current_theme, organisation" param/>
           </section>
     </content:>
 
@@ -1049,7 +1049,7 @@
               </ht>
             </h2>
 
-            <record-flags fields="" param/>
+            <record-flags fields="administrator, spam, deleted" param/>
 
             <a action="edit" if="&can_edit?" param="edit-link">
               <ht key="wp_user.actions.edit" name="#{name(:no_wrapper => true)}">
@@ -1059,7 +1059,7 @@
           </header>
 
           <section param="content-body">
-            <field-list fields="group" param/>
+            <field-list fields="user_login, user_email, user_pass, user_nicename, user_url, user_registered, user_activation_key, user_status, display_name, state, group" param/>
           </section>
     </content:>
 

@@ -20,6 +20,7 @@ class OrganisationsController < ApplicationController
     begin
       @org = Organisation.find(params[:id])
       @data = @org.select_fields
+      #add in the list of themes
       @data[:themes] = @org.themes.map {|th| th.select_fields}
       render_api
     rescue

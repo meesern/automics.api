@@ -32,6 +32,7 @@ Given /^annotation (.+) belongs to panel (.+)$/ do |annotation, panel_id|
   Annotation.create! :text=>annotation, :id=>panel
 end
 
+
 #--------------------------------------------------------------
 
 When /^I get endpoint (.+)$/ do |endpoint|
@@ -99,16 +100,10 @@ Then /^Show me the Response$/ do
   p @response.body
 end
 
-Then /^I should get a list of themes$/ do
+Then /^I should get a list of (.+)$/ do |things|
     resp = parse_page(page.html)
-    assert resp[:themes].class == Array
-    assert resp[:themes].length > 0
-end
-
-Then /^I should get a list of resources$/ do
-    resp = parse_page(page.html)
-    assert resp[:resources].class == Array
-    assert resp[:resources].length > 0
+    assert resp[:"#{things}"].class == Array
+    assert resp[:"#{things}"].length > 0
 end
 
 Then /^I should get the actual photo$/ do

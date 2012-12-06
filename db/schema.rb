@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121129135350) do
+ActiveRecord::Schema.define(:version => 20121206143215) do
 
   create_table "wp_annotation", :force => true do |t|
     t.string   "text"
@@ -42,8 +42,10 @@ ActiveRecord::Schema.define(:version => 20121129135350) do
     t.datetime "updated_at"
     t.integer  "organisation_id"
     t.string   "hashid"
+    t.integer  "current_theme_id"
   end
 
+  add_index "wp_group", ["current_theme_id"], :name => "index_wp_group_on_current_theme_id"
   add_index "wp_group", ["hashid"], :name => "index_wp_group_on_hashid"
   add_index "wp_group", ["name"], :name => "index_wp_group_on_name"
   add_index "wp_group", ["organisation_id"], :name => "index_wp_group_on_organisation_id"

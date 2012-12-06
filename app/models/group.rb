@@ -13,6 +13,7 @@ class Group < ActiveRecord::Base
   belongs_to :organisation
   has_many :wp_users
   has_many :themes, :through => :organisation
+  belongs_to :current_theme, :class_name => 'Theme'
   has_many :photos
   has_many :comics
   has_many :panels, :through => :comics

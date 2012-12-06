@@ -18,6 +18,10 @@ class Theme < ActiveRecord::Base
     "name, id"
   end
 
+  def self.default
+    @defid ||= (self.find_by_name("Default") || self.first)
+  end
+
   #def select_fields in api_helper
 
   # --- Permissions --- #

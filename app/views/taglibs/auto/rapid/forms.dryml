@@ -27,7 +27,7 @@
 <def tag="form" for="Group">
   <form merge param="default">
     <error-messages param/>
-    <field-list fields="name, hashid, organisation" param/>
+    <field-list fields="name, hashid, current_theme, organisation" param/>
     <div param="actions">
       <submit label="#{ht 'group.actions.save', :default=>['Save']}" param/><or-cancel param="cancel"/>
     </div>
@@ -99,7 +99,7 @@
 <def tag="form" for="WpUser">
   <form merge param="default">
     <error-messages param/>
-    <field-list fields="group" param/>
+    <field-list fields="user_login, user_email, user_pass, user_nicename, user_url, user_registered, user_activation_key, user_status, display_name, spam, deleted, administrator, state, group" param/>
     <div param="actions">
       <submit label="#{ht 'wp_user.actions.save', :default=>['Save']}" param/><or-cancel param="cancel"/>
     </div>

@@ -10,7 +10,6 @@ Feature: Provide API
 
   Background: It's Christmas
     Given organisation Automics exists
-    And   theme Christmas exists
 
   Scenario: I list all groups available to me
     Given group Jonty's House exists
@@ -174,9 +173,16 @@ Feature: Provide API
 
   Scenario: I want a particular comic 
     Given comic Mel's Bells exists
+    And   theme Christmas belongs to Automics
+    And   comic Mel's Bells has theme Christmas
+    And   resource Santa Hat belongs to Christmas
+    And   panel 1 belongs to Mel's Bells
+    And   panel 2 belongs to Mel's Bells
     When I get endpoint /v1/comic/1
     Then Show me the Result
     And  I should get name: Mel's Bells
+    And  I should get a list of panels
+    And  I should get a list of resources
 
     #curl --noproxy localhost --request POST --data 'data={"name":"Santa Rich", "description":"Like a ferret up a stove pipe"}' http://localhost:3000/v1/comic
   Scenario: I make a new comic

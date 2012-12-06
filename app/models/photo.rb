@@ -12,6 +12,9 @@ class Photo < ActiveRecord::Base
   end
 
   set_table_name "wp_photo"
+  
+  #provides image and thumb
+  #mount_uploader :image, ImageUploader
 
   belongs_to :group
 

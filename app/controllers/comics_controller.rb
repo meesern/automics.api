@@ -17,7 +17,10 @@ class ComicsController < ApplicationController
 
   def api_show
     begin
-      @data = Comic.find(params[:id]).select_fields
+      @comic = Comic.find(params[:id])
+      @data = @comic.select_fields
+      #add in the list of panels
+      @data[:panels] = @comic.panels.map {|panel| panel.select_fields}
       render_api
     rescue
       api_exception

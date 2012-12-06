@@ -17,7 +17,7 @@ class Organisation < ActiveRecord::Base
   #Report the default organisation_id - it's the one called 
   #Automics (or if necessary, the first in the database).
   def self.default
-    @defid ||= (self.find_by_name('Automics').id || self.first)
+    @defid ||= (self.find_by_name('Automics') || self.first)
   end
 
   def self.report_field_names
