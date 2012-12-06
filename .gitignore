@@ -2,9 +2,8 @@
 db/*.sqlite3
 log/*.log
 tmp/
-#include dynamic content for production
-#app/views/taglibs/auto/**/*
-#config/hobo_routes.rb
+app/views/taglibs/auto/**/*
+config/hobo_routes.rb
 *.swp
 *.swo
 *.bak
