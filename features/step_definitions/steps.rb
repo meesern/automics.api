@@ -7,21 +7,6 @@ Given /^group (.+) exists$/ do |group|
   Group.create! :name=>group, :organisation=>Organisation.first 
 end
 
-Given /^theme (.+) belongs to (.+)$/ do |theme, org_name|
-  org = Organisation.find_by_name(org_name)
-  Theme.create! :name=>theme, :organisation=>org
-end
-
-Given /^resource (.+) belongs to (.+)$/ do |resource, theme_name|
-  theme = Theme.find_by_name(theme_name)
-  Resource.create! :name=>resource, :theme=>theme
-end
-
-Given /^photo (.+) belongs to (.+)$/ do |photo, group_name|
-  group = Group.find_by_name(group_name)
-  Photo.create! :description=>photo, :group=>group
-end
-
 Given /^panel (.+) belongs to (.+)$/ do |panel, comic_name|
   comic = Comic.find_by_name(comic_name)
   Panel.create! :id=>panel.to_i, :comic=>comic
@@ -32,6 +17,18 @@ Given /^annotation (.+) belongs to panel (.+)$/ do |annotation, panel_id|
   Annotation.create! :text=>annotation, :id=>panel
 end
 
+Given /^photo (.+) belongs to group (.+)$/ do |photo, group_name|
+  group = Group.find_by_name(group_name)
+  Photo.create! :description=>photo, :group=>group
+end
+
+#      not photo,ann' or panel but someother...
+Given /^(?!(photo|annotation|panel))(\w+) (.+) belongs to (\w+) (.+)$/ do |_,source_class, source_name, belongs_class, belongs_name|
+  belong = eval(belongs_class.capitalize).find_by_name(belongs_name)
+  source = eval(source_class.capitalize).find_or_create_by_name(source_name)
+  source.send(:"#{belongs_class}=",belong)
+  source.save
+end
 
 #--------------------------------------------------------------
 
