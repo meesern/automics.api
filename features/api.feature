@@ -177,6 +177,7 @@ Feature: Provide API
     Given group Christmas party exists
     And   comic Mels Bells belongs to group Christmas party
     And   theme Christmas belongs to organisation Automics
+    And   theme Christmas is the Christmas party current theme
     And   resource Santa Hat belongs to theme Christmas
     And   panel 1 belongs to Mels Bells
     And   panel 2 belongs to Mels Bells

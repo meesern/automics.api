@@ -19,8 +19,9 @@ class ComicsController < ApplicationController
     begin
       @comic = Comic.find(params[:id])
       @data = @comic.select_fields
-      #add in the list of panels
-      @data[:panels] = @comic.panels.map {|panel| panel.select_fields}
+      #add in the list of panels and resources
+      @data[:panels] = @comic.panel_list 
+      @data[:resources] = @comic.resource_list
       render_api
     rescue
       api_exception
