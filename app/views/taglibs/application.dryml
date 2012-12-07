@@ -17,3 +17,38 @@
     </footer:>
   </old-page>
 </extend>
+
+<def tag="photo-form">
+  <form multipart='true'>
+    <error-messages/>
+    <field-list fields="description, width, height, fmt" />
+    <%= image_tag(this.image_url) if this.image? %> 
+    Image: <input type='file'  name='image'/>
+    <input type='hidden' name='image_cache'/>
+    <div >
+      <submit label="Save"/>
+      <or-cancel/>
+    </div>
+  </form>
+</def>
+
+<def tag='show-photo'>
+  <show-page>
+    <content-body:>
+      <field-list fields="description, width, height, fmt">
+      </field-list>
+      <image src="../#{this.image}"/>
+    </content-body:>
+  </show-page>
+</def>
+
+
+<def tag="markdown-page">
+<page>
+  <content:>
+    <div class="markdown" param="default"/>
+  </content>
+</page>
+</def>
+
+

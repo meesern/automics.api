@@ -695,7 +695,7 @@
 
           <section param="content-body">
             <view:description param="description" />
-            <field-list fields="place, width, height, fmt, group" param/>
+            <field-list fields="width, height, fmt, group" param/>
           </section>
     </content:>
 

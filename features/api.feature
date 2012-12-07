@@ -44,7 +44,7 @@ Feature: Provide API
     Then I should get name: A quiet night
 
   Scenario: I delete (myself from) a group
-    Then do later
+    Then to do 
 
   #
   # Organisations
@@ -140,7 +140,7 @@ Feature: Provide API
     #curl --noproxy localhost --request POST --data 'data={"description":"Look at 'em go!"}' http://localhost:3000/v1/photo
   Scenario: I share a new photo
     When I post endpoint /v1/photo with data={"description":"Look at 'em go!"}
-    Then do later
+    Then to do 
 
     #curl --noproxy localhost --request PUT --data 'data={"description":"Rich, Liz and Mel"}' http://localhost:3000/v1/photo/1
   Scenario: I change the description of a photo
@@ -201,6 +201,9 @@ Feature: Provide API
     And  I get endpoint /v1/comic/1
     Then I should get name: Mels Christmas Bells
 
+  Scenario: I change the order of panels
+    Then to do 
+
     #curl --noproxy localhost --request DELETE http://localhost:3000/v1/comic/1
   Scenario: I delete a comic
     Given comic Liz fills the Stockings exists
@@ -233,7 +236,11 @@ Feature: Provide API
     Given comic Mels Bells exists
     And   panel 1 belongs to Mels Bells
     When I get endpoint /v1/panel/1
-    Then  I should get id: 1
+    Then Show me the Result
+    And  I should get id: 1
+    And  I should get a photo location
+    And  I should get resource locations
+    And  I should get annotation locations
     
     #curl --noproxy localhost --request POST --data 'data={}' http://localhost:3000/v1/comic/1/panel
   Scenario: I make a new panel
@@ -243,7 +250,7 @@ Feature: Provide API
     And  response should have id: 1
     
     #curl --noproxy localhost --request DELETE http://localhost:3000/v1/panel/1
-  Scenario: I delete a comic
+  Scenario: I delete a panel
     Given comic Santa Rich exists
     And   panel 1 belongs to Santa Rich
     And   panel 2 belongs to Santa Rich

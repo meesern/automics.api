@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121206143215) do
+ActiveRecord::Schema.define(:version => 20121207141304) do
 
   create_table "wp_annotation", :force => true do |t|
     t.string   "text"
@@ -68,7 +68,7 @@ ActiveRecord::Schema.define(:version => 20121206143215) do
 
   create_table "wp_photo", :force => true do |t|
     t.string   "description"
-    t.string   "place"
+    t.string   "image"
     t.integer  "width"
     t.integer  "height"
     t.string   "fmt"

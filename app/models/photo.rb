@@ -4,7 +4,7 @@ class Photo < ActiveRecord::Base
 
   fields do
     description :string
-    place       :string
+    image       :string
     width       :integer
     height      :integer
     fmt         :string
@@ -14,12 +14,12 @@ class Photo < ActiveRecord::Base
   set_table_name "wp_photo"
   
   #provides image and thumb
-  #mount_uploader :image, ImageUploader
+  mount_uploader :image, ImageUploader
 
   belongs_to :group
 
   def self.report_field_names
-    "description, id, width, height, place"
+    "description, id, width, height, image"
   end
 
   #def select_fields in api_helper

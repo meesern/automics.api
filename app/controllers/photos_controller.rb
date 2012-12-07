@@ -4,6 +4,12 @@ class PhotosController < ApplicationController
 
   auto_actions :all
 
+  def update  
+    @photo = Photo.find(params[:id])
+    @photo.image = params[:image]
+    hobo_update(@photo)
+  end
+
   def api_index
     begin
       #This will need to be through current group

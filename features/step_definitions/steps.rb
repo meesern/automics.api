@@ -110,12 +110,22 @@ Then /^I should get a list of (.+)$/ do |things|
     assert resp[:"#{things}"].length > 0
 end
 
+Then /^to do$/ do
+  #This step is still unimplemented
+  pending 
+end
+
 Then /^I should get the actual photo$/ do
   pending 
 end
 
-Then /^do later$/ do
-  #This step is still unimplemented
-  pending 
+Then /^I should get an image$/ do
+  pending # express the regexp above with the code you wish you had
 end
+
+Then /^I should get a thumbnail$/ do
+  pending # express the regexp above with the code you wish you had
+end
+
+
 

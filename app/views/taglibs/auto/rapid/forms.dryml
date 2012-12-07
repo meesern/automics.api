@@ -63,7 +63,7 @@
 <def tag="form" for="Photo">
   <form merge param="default">
     <error-messages param/>
-    <field-list fields="description, place, width, height, fmt, group" param/>
+    <field-list fields="description, width, height, fmt, group" param/>
     <div param="actions">
       <submit label="#{ht 'photo.actions.save', :default=>['Save']}" param/><or-cancel param="cancel"/>
     </div>
