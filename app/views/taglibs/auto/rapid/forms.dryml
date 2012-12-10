@@ -63,7 +63,7 @@
 <def tag="form" for="Photo">
   <form merge param="default">
     <error-messages param/>
-    <field-list fields="description, width, height, fmt, group" param/>
+    <field-list fields="description, image, width, height, fmt, group" param/>
     <div param="actions">
       <submit label="#{ht 'photo.actions.save', :default=>['Save']}" param/><or-cancel param="cancel"/>
     </div>
@@ -75,7 +75,7 @@
 <def tag="form" for="Resource">
   <form merge param="default">
     <error-messages param/>
-    <field-list fields="name, image_place, text, theme" param/>
+    <field-list fields="name, typ, image, text, theme" param/>
     <div param="actions">
       <submit label="#{ht 'resource.actions.save', :default=>['Save']}" param/><or-cancel param="cancel"/>
     </div>

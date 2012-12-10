@@ -120,12 +120,22 @@ Then /^I should get the actual photo$/ do
 end
 
 Then /^I should get an image$/ do
-  pending # express the regexp above with the code you wish you had
+  pending 
 end
 
 Then /^I should get a thumbnail$/ do
-  pending # express the regexp above with the code you wish you had
+  pending 
 end
 
+Then /^I should get (.+) locations$/ do |things|
+    resp = parse_page(page.html)
+    assert resp[:"#{things}"].class == Array
+    assert resp[:"#{things}"].length > 0
+end
+
+Then /^I should get a photo location$/ do 
+    resp = parse_page(page.html)
+    assert resp[:photo] =~ /photo\//
+end
 
 

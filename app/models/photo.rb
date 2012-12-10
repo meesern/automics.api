@@ -18,8 +18,14 @@ class Photo < ActiveRecord::Base
 
   belongs_to :group
 
+  #Fields reported in the API
   def self.report_field_names
     "description, id, width, height, image"
+  end
+
+  #Fields used by views in application.dryml
+  def form_names
+    "description, width, height, group"
   end
 
   #def select_fields in api_helper

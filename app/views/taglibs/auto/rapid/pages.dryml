@@ -695,7 +695,7 @@
 
           <section param="content-body">
             <view:description param="description" />
-            <field-list fields="width, height, fmt, group" param/>
+            <field-list fields="image, width, height, fmt, group" param/>
           </section>
     </content:>
 
@@ -815,7 +815,7 @@
           </header>
 
           <section param="content-body">
-            <field-list fields="image_place, text, theme" param/>
+            <field-list fields="typ, image, text, theme" param/>
           </section>
     </content:>
 

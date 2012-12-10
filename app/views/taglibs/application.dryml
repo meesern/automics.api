@@ -18,10 +18,31 @@
   </old-page>
 </extend>
 
+
+<%# photo-form, resource-form, show-photo and show-resrouce are residual after 
+  # refactoring but I will leave them here for flexibility %>
+
 <def tag="photo-form">
+  <image-form/>
+</def>
+
+<def tag="resource-form">
+  <image-form/>
+</def>
+
+<def tag='show-photo'>
+  <show-image/>
+</def>
+
+<def tag='show-resource'>
+  <show-image/>
+</def>
+
+
+<def tag="image-form">
   <form multipart='true'>
     <error-messages/>
-    <field-list fields="description, width, height, fmt" />
+    <field-list param fields="#{this.form_names}"/>
     <%= image_tag(this.image_url) if this.image? %> 
     Image: <input type='file'  name='image'/>
     <input type='hidden' name='image_cache'/>
@@ -32,11 +53,11 @@
   </form>
 </def>
 
-<def tag='show-photo'>
+
+<def tag='show-image'>
   <show-page>
     <content-body:>
-      <field-list fields="description, width, height, fmt">
-      </field-list>
+      <field-list param fields="#{this.form_names}"/>
       <image src="../#{this.image}"/>
     </content-body:>
   </show-page>

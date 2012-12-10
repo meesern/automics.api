@@ -4,8 +4,8 @@ class Resource < ActiveRecord::Base
 
   fields do
     name        :string
-    type        :string
-    image_place :string
+    typ         :string
+    image       :string
     text        :string
     timestamps
   end
@@ -16,8 +16,17 @@ class Resource < ActiveRecord::Base
 
   validates_presence_of :name
 
+  #provides image and thumb
+  mount_uploader :image, ResourceUploader
+
+  #Fields reported in the API
   def self.report_field_names
-    "name, id, type, image_place, text"
+    "name, id, typ, image, text"
+  end
+
+  #Fields used by views in application.dryml
+  def form_names
+    "name, typ, text, theme"
   end
 
   #def select_fields in api_helper

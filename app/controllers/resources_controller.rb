@@ -4,6 +4,12 @@ class ResourcesController < ApplicationController
 
   auto_actions :all
 
+  def update  
+    @resource = Resource.find(params[:id])
+    @resource.image = params[:image]
+    hobo_update(@resource)
+  end
+
   def api_index
     begin
       @theme = Theme.find(params[:id])

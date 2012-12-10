@@ -4,6 +4,9 @@ log/*.log
 tmp/
 app/views/taglibs/auto/**/*
 config/hobo_routes.rb
+public/public
+public/images/resources
+public/images/photos
 *.swp
 *.swo
 *.bak
