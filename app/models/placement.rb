@@ -1,30 +1,22 @@
-class Panel < ActiveRecord::Base
+class Placement < ActiveRecord::Base
 
   hobo_model # Don't put anything above this
 
   fields do
+    xoff    :float
+    yoff    :float
+    scale   :float
+    z_index :integer
     timestamps
   end
 
-  set_table_name "wp_panel"
-
-  belongs_to :comic
-  has_one    :group, :through => :comic
-  has_many   :placements
-  belongs_to :photo
-  has_many   :annotations 
-
+  belongs_to :resource
+  belongs_to :panel
+  
   #Fields reported by the API
   def self.report_field_names
-    "id, photo_url"
+    "resource_id, xoff, yoff, scale, z_index"
   end
-
-  def photo_url
-    #andand soemtimes just doesn't work!
-    self.photo && self.photo.image_url
-  end
-
-  #def select_fields in api_helper
 
   # --- Permissions --- #
 

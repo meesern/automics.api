@@ -46,6 +46,13 @@ Given /^a photo with (.+) is on panel (.+)$/ do |filename, panel|
   @panel.save
 end
 
+Given /^resource (.+) is placed on panel (\d+) at ([\d.]+),([\d.]+) scale ([\d.]+)$/ do |resource, panel, x, y, scale|
+  @resource = Resource.find_or_create_by_name(resource)
+  @panel = Panel.find(panel)
+  @panel.placements.create(:resource=>@resource, :xoff=>x, :yoff=>y, :scale=>scale)
+end
+
+
 #--------------------------------------------------------------
 
 When /^I get endpoint (.+)$/ do |endpoint|
@@ -131,6 +138,13 @@ Then /^I should get a photo location with (.+)$/ do |text|
     resp = parse_page(page.html)
     assert resp[:photo_url] =~ /photos\/.*\/#{text}/
 end
+
+Then /^I should get placement at ([\d.]+) ([\d.]+) scale ([\d.]+)$/ do |x, y, scale|
+    assert_keyval_on_page("xoff", x, page)
+    assert_keyval_on_page("yoff", y, page)
+    assert_keyval_on_page("scale", scale, page)
+end
+
 #
 #-------------------------------------------------------------
 #

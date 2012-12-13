@@ -51,6 +51,14 @@
   </card>
 </def>
 
+<def tag="card" for="Placement">
+  <card class="placement" param="default" merge>
+    <header: param>
+      <h4 param="heading"><name/></h4>
+    </header:>
+  </card>
+</def>
+
 <def tag="card" for="Resource">
   <card class="resource" param="default" merge>
     <header: param>

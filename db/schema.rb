@@ -11,7 +11,21 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121213122715) do
+ActiveRecord::Schema.define(:version => 20121213160903) do
+
+  create_table "placements", :force => true do |t|
+    t.float    "xoff"
+    t.float    "scale"
+    t.integer  "z_index"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "resource_id"
+    t.integer  "panel_id"
+    t.float    "yoff"
+  end
+
+  add_index "placements", ["panel_id"], :name => "index_placements_on_panel_id"
+  add_index "placements", ["resource_id"], :name => "index_placements_on_resource_id"
 
   create_table "wp_annotation", :force => true do |t|
     t.string   "text"

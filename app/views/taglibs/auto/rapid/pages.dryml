@@ -10,6 +10,7 @@
     <nav-item with="&Organisation"><ht key="organisation.nav_item" count="100"><model-name-human count="100"/></ht></nav-item>
     <nav-item with="&Panel"><ht key="panel.nav_item" count="100"><model-name-human count="100"/></ht></nav-item>
     <nav-item with="&Photo"><ht key="photo.nav_item" count="100"><model-name-human count="100"/></ht></nav-item>
+    <nav-item with="&Placement"><ht key="placement.nav_item" count="100"><model-name-human count="100"/></ht></nav-item>
     <nav-item with="&Resource"><ht key="resource.nav_item" count="100"><model-name-human count="100"/></ht></nav-item>
     <nav-item with="&Theme"><ht key="theme.nav_item" count="100"><model-name-human count="100"/></ht></nav-item>
   </navigation>
@@ -716,6 +717,126 @@
           </ht>
         </h2>
         <delete-button label="#{ht 'photo.actions.delete', :default=>['Remove This Photo']}" param/>
+      </section>
+
+      <section param="content-body">
+        <form param/>
+      </section>
+    </content:>
+
+  </page>
+</def>
+
+
+
+
+
+<!-- ====== Placement Pages ====== -->
+
+<def tag="index-page" for="Placement">
+  <page merge title="#{ht 'placement.index.title', :default=>[model.model_name.human(:count=>100)] }">
+    <body: class="index-page placement" param/>
+
+    <content: param>
+      <header param="content-header">
+        <h2 param="heading">
+          <ht key="placement.index.heading">
+            <model-name-human model="&model"/>
+          </ht>
+        </h2>
+
+        <p param="count" if>
+          <ht key="placement.collection.count" count="&collection_count">
+            <count summary/>
+          </ht>
+        </p>
+      </header>
+
+      <section param="content-body">
+        <a action="new" to="&model" param="new-link">
+          <ht key="placement.actions.new">New Placement</ht>
+        </a>
+
+        <page-nav param="top-page-nav"/>
+
+        <collection param/>
+
+        <page-nav param="bottom-page-nav"/>
+
+
+      </section>
+    </content:>
+  </page>
+</def>
+
+
+<def tag="new-page" for="Placement">
+  <page merge title="#{ht 'placement.new.title', :default=>[' New Placement'] }">
+    <body: class="new-page placement" param/>
+
+    <content: param>
+      <section param="content-header">
+        <h2 param="heading">
+          <ht key="placement.new.heading">
+            New Placement
+          </ht>
+        </h2>
+      </section>
+
+      <section param="content-body">
+        <form param>
+          <submit: label="#{ht 'placement.actions.create', :default=>['Create Placement']}"/>
+        </form>
+      </section>
+    </content:>
+  </page>
+</def>
+
+
+<def tag="show-page" for="Placement">
+  <page merge title="#{ht 'placement.show.title', :default=>['Placement'], :name => name(:no_wrapper => true) }">
+
+    <body: class="show-page placement" param/>
+
+    <content: param>
+          <header param="content-header">
+            <h2 param="heading">
+              <ht key="placement.show.heading" name="#{name(:no_wrapper => true)}">
+                Placement <name/>
+              </ht>
+            </h2>
+
+            <record-flags fields="" param/>
+
+            <a action="edit" if="&can_edit?" param="edit-link">
+              <ht key="placement.actions.edit" name="#{name(:no_wrapper => true)}">
+                Edit Placement
+              </ht>
+            </a>
+          </header>
+
+          <section param="content-body">
+            <field-list fields="xoff, yoff, scale, z_index, panel, resource" param/>
+          </section>
+    </content:>
+
+  </page>
+</def>
+
+
+<def tag="edit-page" for="Placement">
+  <page merge title="#{ht 'placement.edit.title', :default=>['Edit Placement'], :name => name(:no_wrapper => true) }">
+
+    <body: class="edit-page placement" param/>
+
+    <content:>
+      <section param="content-header">
+        <h2 param="heading">
+          <ht key="placement.edit.heading" name="#{name(:no_wrapper => true)}">
+            Edit Placement
+          </ht>
+        </h2>
+        <delete-button label="#{ht 'placement.actions.delete', :default=>['Remove This Placement']}" param/>
       </section>
 
       <section param="content-body">

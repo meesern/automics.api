@@ -78,6 +78,16 @@ AutomicsApi::Application.routes.draw do
   delete 'organisations/:id(.:format)' => 'organisations#destroy', :as => 'destroy_organisation', :constraints => { :id => %r([^/.?]+) }
 
 
+  # Resource routes for controller "placements"
+  get 'placements(.:format)' => 'placements#index', :as => 'placements'
+  get 'placements/new(.:format)', :as => 'new_placement'
+  get 'placements/:id/edit(.:format)' => 'placements#edit', :as => 'edit_placement'
+  get 'placements/:id(.:format)' => 'placements#show', :as => 'placement', :constraints => { :id => %r([^/.?]+) }
+  post 'placements(.:format)' => 'placements#create', :as => 'create_placement'
+  put 'placements/:id(.:format)' => 'placements#update', :as => 'update_placement', :constraints => { :id => %r([^/.?]+) }
+  delete 'placements/:id(.:format)' => 'placements#destroy', :as => 'destroy_placement', :constraints => { :id => %r([^/.?]+) }
+
+
   # Resource routes for controller "resources"
   get 'resources(.:format)' => 'resources#index', :as => 'resources'
   get 'resources/new(.:format)', :as => 'new_resource'
