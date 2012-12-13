@@ -20,7 +20,8 @@ class ResourceUploader < CarrierWave::Uploader::Base
   # end
 
   # Process files as they are uploaded:
-  process :resize_to_limit => [320, 480]
+  # 
+  process :resize_to_limit => [640, 640]
   #
   # def scale(width, height)
   #   # do something

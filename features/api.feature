@@ -235,10 +235,11 @@ Feature: Provide API
   Scenario: I want a particular panel 
     Given comic Mels Bells exists
     And   panel 1 belongs to Mels Bells
+    And   a photo with kitten.jpg is on panel 1
     When I get endpoint /v1/panel/1
     Then Show me the Result
     And  I should get id: 1
-    And  I should get a photo location
+    And  I should get a photo location with kitten.jpg
     And  I should get resource locations
     And  I should get annotation locations
     

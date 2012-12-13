@@ -37,6 +37,13 @@ Given /^theme (.+) is the (.+) current theme$/ do |theme, group|
   @group.save
 end
 
+Given /^a photo with (.+) is on panel (.+)$/ do |filename, panel|
+  @photo = Photo.create(:image=>filename)
+  @panel = Panel.find(panel)
+  @panel.photo = @photo
+  @panel.save
+end
+
 #--------------------------------------------------------------
 
 When /^I get endpoint (.+)$/ do |endpoint|

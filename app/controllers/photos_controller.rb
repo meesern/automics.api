@@ -13,9 +13,9 @@ class PhotosController < ApplicationController
   def api_index
     begin
       #This will need to be through current group
-      @photos = Photo.select(Photo.report_field_names)
+      @photos = Photo.find(:all)
       #Switch groups to hashes ready for output
-      @data = @photos.map {|photo| photo.attributes}
+      @data = @photos.map {|photo| photo.select_fields}
       render_api
     rescue
       api_exception

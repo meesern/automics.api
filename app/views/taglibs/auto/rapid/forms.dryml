@@ -51,7 +51,7 @@
 <def tag="form" for="Panel">
   <form merge param="default">
     <error-messages param/>
-    <field-list fields="comic" param/>
+    <field-list fields="comic, photo" param/>
     <div param="actions">
       <submit label="#{ht 'panel.actions.save', :default=>['Save']}" param/><or-cancel param="cancel"/>
     </div>

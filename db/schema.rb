@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121210115501) do
+ActiveRecord::Schema.define(:version => 20121213122715) do
 
   create_table "wp_annotation", :force => true do |t|
     t.string   "text"
@@ -62,9 +62,11 @@ ActiveRecord::Schema.define(:version => 20121210115501) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "comic_id"
+    t.integer  "photo_id"
   end
 
   add_index "wp_panel", ["comic_id"], :name => "index_wp_panel_on_comic_id"
+  add_index "wp_panel", ["photo_id"], :name => "index_wp_panel_on_photo_id"
 
   create_table "wp_photo", :force => true do |t|
     t.string   "description"
@@ -99,6 +101,24 @@ ActiveRecord::Schema.define(:version => 20121210115501) do
   end
 
   add_index "wp_theme", ["organisation_id"], :name => "index_wp_theme_on_organisation_id"
+
+  create_table "wp_user", :force => true do |t|
+    t.string   "crypted_password",          :limit => 40
+    t.string   "salt",                      :limit => 40
+    t.string   "remember_token"
+    t.datetime "remember_token_expires_at"
+    t.string   "name"
+    t.string   "email_address"
+    t.boolean  "administrator",                           :default => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "group_id"
+    t.string   "state",                                   :default => "invited"
+    t.datetime "key_timestamp"
+  end
+
+  add_index "wp_user", ["group_id"], :name => "index_wp_user_on_group_id"
+  add_index "wp_user", ["state"], :name => "index_wp_user_on_state"
 
   create_table "wp_users", :force => true do |t|
     t.string   "crypted_password",          :limit => 40

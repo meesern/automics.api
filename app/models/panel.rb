@@ -9,10 +9,10 @@ class Panel < ActiveRecord::Base
   set_table_name "wp_panel"
 
   belongs_to :comic
-  has_one  :group, :through => :comic
-  has_many :resources
-  has_one  :photo
-  has_many :annotations 
+  has_one    :group, :through => :comic
+  has_many   :resources
+  belongs_to :photo
+  has_many   :annotations 
 
   #Fields reported by the API
   def self.report_field_names

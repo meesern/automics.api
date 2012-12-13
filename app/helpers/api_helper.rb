@@ -22,7 +22,10 @@ class ActiveRecord::Base
   #Take the list of names defined for each API class (report_field_names) and 
   #return the hash of attributes of only those names
   def select_fields
-    self.attributes.slice(*self.class.report_field_names.split(', '))
+    report = {}
+    names = self.class.report_field_names.split(', ')
+    names.each {|attr| report[:"#{attr}"] = send(attr)}
+    report
   end
 end
 

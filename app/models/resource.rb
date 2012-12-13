@@ -17,11 +17,12 @@ class Resource < ActiveRecord::Base
   validates_presence_of :name
 
   #provides image and thumb
+  include ImageMixin
   mount_uploader :image, ResourceUploader
 
   #Fields reported in the API
   def self.report_field_names
-    "name, id, typ, image, text"
+    "name, id, typ, image_url, thumb_url, text"
   end
 
   #Fields used by views in application.dryml
