@@ -38,7 +38,9 @@ Given /^theme (.+) is the (.+) current theme$/ do |theme, group|
 end
 
 Given /^a photo with (.+) is on panel (.+)$/ do |filename, panel|
-  @photo = Photo.create(:image=>filename)
+  @photo = Photo.new
+  @photo.image = File.open(::Rails.root.to_s+"/features/test_images/"+filename)
+  @photo.save
   @panel = Panel.find(panel)
   @panel.photo = @photo
   @panel.save
@@ -57,6 +59,8 @@ end
 When /^I delete endpoint (.+)$/ do |endpoint|
   @response = delete(endpoint)
 end
+
+#---------------------------------------------------------------------
 
 Then /^response should have ([^ ]+): (.*)$/ do |key, content|
   assert_keyval_on_response(key, content, @response)
@@ -117,6 +121,19 @@ Then /^I should get a list of (.+)$/ do |things|
     assert resp[:"#{things}"].length > 0
 end
 
+Then /^I should get (.+) locations$/ do |things|
+    resp = parse_page(page.html)
+    assert resp[:"#{things}"].class == Array
+    assert resp[:"#{things}"].length > 0
+end
+
+Then /^I should get a photo location with (.+)$/ do |text|
+    resp = parse_page(page.html)
+    assert resp[:photo_url] =~ /photos\/.*\/#{text}/
+end
+#
+#-------------------------------------------------------------
+#
 Then /^to do$/ do
   #This step is still unimplemented
   pending 
@@ -132,17 +149,6 @@ end
 
 Then /^I should get a thumbnail$/ do
   pending 
-end
-
-Then /^I should get (.+) locations$/ do |things|
-    resp = parse_page(page.html)
-    assert resp[:"#{things}"].class == Array
-    assert resp[:"#{things}"].length > 0
-end
-
-Then /^I should get a photo location$/ do 
-    resp = parse_page(page.html)
-    assert resp[:photo] =~ /photo\//
 end
 
 

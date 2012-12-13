@@ -16,7 +16,12 @@ class Panel < ActiveRecord::Base
 
   #Fields reported by the API
   def self.report_field_names
-    "id"
+    "id, photo_url"
+  end
+
+  def photo_url
+    #andand soemtimes just doesn't work!
+    self.photo && self.photo.image_url
   end
 
   #def select_fields in api_helper
