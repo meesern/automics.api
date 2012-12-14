@@ -145,6 +145,14 @@ Then /^I should get placement at ([\d.]+) ([\d.]+) scale ([\d.]+)$/ do |x, y, sc
     assert_keyval_on_page("scale", scale, page)
 end
 
+Then /^I should not get placement at ([\d.]+) ([\d.]+) scale ([\d.]+)$/ do |x, y, scale|
+    #This isn't quite true of course - a placement could have
+    #any one of these values but it will do for our purpose
+    assert_no_keyval_on_page("xoff", x, page)
+    assert_no_keyval_on_page("yoff", y, page)
+    assert_no_keyval_on_page("scale", scale, page)
+end
+
 #
 #-------------------------------------------------------------
 #

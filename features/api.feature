@@ -270,12 +270,12 @@ Feature: Provide API
   #
   # Annotation
   #
-  Scenario: I list all annotations available to me
+  Scenario: I list all annotations on a panel
     Given comic Santa Rich exists
     And   panel 1 belongs to Santa Rich
     And   annotation Wooo! belongs to panel 1
     And   annotation Let's Party belongs to panel 1
-    When I get endpoint /v1/annotation
+    When I get endpoint /v1/panel/1/annotation
     Then Show me the Result
     And  I should get 2 results
     And  I should get text: Wooo!
@@ -291,7 +291,9 @@ Feature: Provide API
     And  I should get text: Wooo!
     
   Scenario: I make a new annotation
-    When I post endpoint /v1/annotation with data={"text":"Help!"}
+    Given comic Santa Rich exists
+    And   panel 1 belongs to Santa Rich
+    When I post endpoint /v1/panel/1/annotation with data={"text":"Help!"}
     Then Show me the Response
     And  response should have id: 1
     And  response should have text: Help!
@@ -302,8 +304,52 @@ Feature: Provide API
     And   annotation Wooo! belongs to panel 1
     And   annotation Let's Party belongs to panel 1
     When I delete endpoint /v1/annotation/2
-    And  I get endpoint /v1/annotation
+    And  I get endpoint /v1/panel/1/annotation
     Then I should get 1 result
     And  I should get text: Wooo!
     And  I should not get text: Let's Party
+  #
+  # Placement
+  #
+  Scenario: I list all placements available to me
+    Given comic Santa Rich exists
+    And   panel 1 belongs to Santa Rich
+    And   resource Snow exists
+    And   resource Snow is placed on panel 1 at 0.5,0.5 scale 1
+    And   resource Snow is placed on panel 1 at 0.6,0.4 scale 0.8
+    When I get endpoint /v1/panel/1/placement
+    Then Show me the Result
+    And  I should get placement at 0.5 0.5 scale 1
+    And  I should get placement at 0.6 0.4 scale 0.8
+
+  Scenario: I want a particular placement 
+    Given comic Santa Rich exists
+    And   panel 1 belongs to Santa Rich
+    And   resource Snow exists
+    And   resource Snow is placed on panel 1 at 0.5,0.5 scale 1
+    When I get endpoint /v1/placement/1
+    Then Show me the Result
+    And  I should get placement at 0.5 0.5 scale 1
+    
+  Scenario: I make a new placement
+    Given comic Santa Rich exists
+    And   panel 1 belongs to Santa Rich
+    And   resource Snow exists
+    When I post endpoint /v1/panel/1/resource/1/placement with data={"xoff":0.2, "yoff":0.1, "scale":2.1}
+    Then Show me the Response
+    And  response should have resource_id: 1
+    And  response should have xoff: 0.2
+    And  response should have yoff: 0.1
+    And  response should have scale: 2.1
+    
+  Scenario: I delete a placement
+    Given comic Santa Rich exists
+    And   panel 1 belongs to Santa Rich
+    And   resource Snow exists
+    And   resource Snow is placed on panel 1 at 0.5,0.5 scale 1.1
+    And   resource Snow is placed on panel 1 at 0.6,0.4 scale 0.8
+    When I delete endpoint /v1/placement/1
+    And  I get endpoint /v1/panel/1/placement
+    Then I should not get placement at 0.5 0.5 scale 1.1
+    And  I should get placement at 0.6 0.4 scale 0.8
 

@@ -12,6 +12,9 @@ class Placement < ActiveRecord::Base
 
   belongs_to :resource
   belongs_to :panel
+
+  validates_presence_of :resource
+  validates_presence_of :panel
   
   #Fields reported by the API
   def self.report_field_names

@@ -7,6 +7,7 @@ class AnnotationsController < ApplicationController
   def api_index
     begin
       #TODO filter through current group 
+      #TODO account for panel
       @annotation = Annotation.select(Annotation.report_field_names)
       @data = @annotation.map {|annotation| annotation.attributes}
       render_api

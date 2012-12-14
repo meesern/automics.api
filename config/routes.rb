@@ -35,8 +35,8 @@ AutomicsApi::Application.routes.draw do
   delete '/v1/photo/:id' 		=> 'photos#api_delete'
 
   #Annotation
-  get  '/v1/annotation'  	        => 'annotations#api_index'
-  post '/v1/annotation' 	        => 'annotations#api_create'
+  get  '/v1/panel/:panel/annotation'    => 'annotations#api_index'
+  post '/v1/panel/:panel/annotation'    => 'annotations#api_create'
   get  '/v1/annotation/:id'  		=> 'annotations#api_show'
   post '/v1/annotation/:id' 		=> 'annotations#api_update'
   delete '/v1/annotation/:id' 		=> 'annotations#api_delete'
@@ -55,6 +55,12 @@ AutomicsApi::Application.routes.draw do
   post '/v1/panel/:id' 			=> 'panels#api_update'
   delete '/v1/panel/:id' 		=> 'panels#api_delete'
 
+  #Placement
+  get  '/v1/panel/:panel/placement'     => 'placements#api_index'
+  post '/v1/panel/:panel/resource/:resource/placement'=> 'placements#api_create'
+  get  '/v1/placement/:id'  		=> 'placements#api_show'
+  post '/v1/placement/:id' 		=> 'placements#api_update'
+  delete '/v1/placement/:id' 		=> 'placements#api_delete'
 
   #get '/v1/dish/:dish/person/:person' => 'api#dish', :qualifier=>'person'
 
