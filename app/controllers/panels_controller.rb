@@ -20,6 +20,7 @@ class PanelsController < ApplicationController
       @panel = Panel.find(params[:id])
       @data = @panel.select_fields
       @data[:placements] = @panel.placements.map {|pl| pl.select_fields}
+      @data[:annotations] = @panel.annotations.map {|pl| pl.select_fields}
       render_api
     rescue
       api_exception

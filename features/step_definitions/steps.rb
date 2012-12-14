@@ -14,7 +14,7 @@ end
 
 Given /^annotation (.+) belongs to panel (.+)$/ do |annotation, panel_id|
   @panel = Panel.find(panel_id.to_i)
-  Annotation.create! :text=>annotation, :id=>@panel
+  Annotation.create! :text=>annotation, :panel=>@panel
 end
 
 Given /^photo (.+) belongs to group (.+)$/ do |photo, group|

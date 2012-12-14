@@ -19,7 +19,6 @@ class AnnotationsController < ApplicationController
     begin
       @annotation = Annotation.find(params[:id])
       @data = @annotation.select_fields
-      #@data[:resources] = @theme.resources.map {|res| res.select_fields}
       render_api
     rescue
       api_exception

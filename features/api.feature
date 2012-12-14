@@ -239,12 +239,15 @@ Feature: Provide API
     And   resource Snow exists
     And   resource Snow is placed on panel 1 at 0.5,0.5 scale 1
     And   resource Snow is placed on panel 1 at 0.6,0.4 scale 0.8
+    And   annotation Wooo! belongs to panel 1
+    And   annotation I Can Haz Cheezburger belongs to panel 1
     When I get endpoint /v1/panel/1
     Then Show me the Result
     And  I should get id: 1
     And  I should get a photo location with kitten.jpeg
     And  I should get placement at 0.5 0.5 scale 1
     And  I should get placement at 0.6 0.4 scale 0.8
+    And  I should get a list of annotations
     
     #curl --noproxy localhost --request POST --data 'data={}' http://localhost:3000/v1/comic/1/panel
   Scenario: I make a new panel

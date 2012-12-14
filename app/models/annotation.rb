@@ -5,9 +5,9 @@ class Annotation < ActiveRecord::Base
   fields do
     text               :string
     bubble_style       :string
-    formatting_options :string
-    xpos_percent       :float
-    ypos_percent       :float
+    foptions           :string
+    xoff               :float
+    yoff               :float
     timestamps
   end
 
@@ -18,7 +18,7 @@ class Annotation < ActiveRecord::Base
 
   #Fields reported by the API
   def self.report_field_names
-    "id, text, bubble_style, formatting_options, xpos_percent, ypos_percent"
+    "id, text, bubble_style, foptions, xoff, yoff"
   end
 
   #def select_fields in api_helper

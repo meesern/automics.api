@@ -104,7 +104,7 @@
           </header>
 
           <section param="content-body">
-            <field-list fields="text, bubble_style, formatting_options, xpos_percent, ypos_percent, panel" param/>
+            <field-list fields="text, bubble_style, foptions, xoff, yoff, panel" param/>
           </section>
     </content:>
 

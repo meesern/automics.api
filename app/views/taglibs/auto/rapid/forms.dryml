@@ -3,7 +3,7 @@
 <def tag="form" for="Annotation">
   <form merge param="default">
     <error-messages param/>
-    <field-list fields="text, bubble_style, formatting_options, xpos_percent, ypos_percent, panel" param/>
+    <field-list fields="text, bubble_style, foptions, xoff, yoff, panel" param/>
     <div param="actions">
       <submit label="#{ht 'annotation.actions.save', :default=>['Save']}" param/><or-cancel param="cancel"/>
     </div>
