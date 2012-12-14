@@ -137,10 +137,14 @@ Feature: Provide API
     And  I should get an image
     And  I should get a thumbnail
 
-    #curl --noproxy localhost --request POST --data 'data={"description":"Look at 'em go!"}' http://localhost:3000/v1/photo
+    #curl --noproxy localhost --request POST --data 'data={"description":"kittens"}' http://localhost:3000/v1/photo
+    #blob is base64 encoded photo data
   Scenario: I share a new photo
-    When I post endpoint /v1/photo with data={"description":"Look at 'em go!"}
-    Then to do 
+    Given group Jonty's House exists
+    When I post endpoint /v1/photo with data={"description":"kittens", "name":"tiny.jpg", "blob":"/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkz ODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2Nj Y2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wAARCAACAAIDASIA AhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQA AAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3 ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWm p6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEA AwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSEx BhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElK U1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3 uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwDcoooq Sj//2Q=="}
+    And  I get endpoint /v1/photo/1
+    Then I should get description: kittens
+    And  I should get a photo location with tiny.jpeg
 
     #curl --noproxy localhost --request PUT --data 'data={"description":"Rich, Liz and Mel"}' http://localhost:3000/v1/photo/1
   Scenario: I change the description of a photo

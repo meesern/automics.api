@@ -33,10 +33,21 @@ class PhotosController < ApplicationController
 
   def api_create
     begin
-      #All groups belong to the default organisation if it's not specified
-      data = JSON.parse(params['data'])
-      logger.info("Creating photo with #{data}")
-      @photo = Photo.create(data)
+      #data = JSON.parse(params['data'])
+      #filename = data["name"]
+      #ext = File.extname(filename)
+      #base = File.basename(filename, ext)
+      #tmp = Tempfile.new([base,ext],:encoding=>'ascii-8bit')
+      ##For post body upload
+      ##tmp.write request.body.read
+      ##tmp.write Base64.decode64(data["blob"])
+      #tmp.write(data["blob"])
+      #data[:image] = tmp
+
+      @photo = Photo.new(data.except("name","blob"))
+      @photo.image = ImageUploader.api_upload(data["name"], data["blob"])
+      @photo.save
+
       @data = @photo.select_fields
       render_api
     rescue

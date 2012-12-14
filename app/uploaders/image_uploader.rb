@@ -47,4 +47,22 @@ class ImageUploader < CarrierWave::Uploader::Base
   #   "something.jpg" if original_filename
   # end
 
+  #
+  # API Upload
+  #   accept the file as passed in the api data request
+  #   name: original filename
+  #   blob: base64 file data
+  #
+  def api_upload(name, blob)
+      filename = data["name"]
+      ext = File.extname(filename)
+      base = File.basename(filename, ext)
+      tmp = Tempfile.new([base,ext],:encoding=>'ascii-8bit')
+      #For post body upload
+      #tmp.write request.body.read
+      #tmp.write Base64.decode64(data["blob"])
+      tmp.write(data["blob"])
+      data[:image] = tmp
+  end
+
 end
