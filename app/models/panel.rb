@@ -16,10 +16,10 @@ class Panel < ActiveRecord::Base
 
   #Fields reported by the API
   def self.report_field_names
-    "id, photo_url"
+    "id, image_url"
   end
 
-  def photo_url
+  def image_url
     #andand soemtimes just doesn't work!
     self.photo && self.photo.image_url
   end

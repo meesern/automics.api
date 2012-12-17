@@ -136,7 +136,7 @@ end
 
 Then /^I should get a photo location with (.+)$/ do |text|
     resp = parse_page(page.html)
-    assert resp[:photo_url] =~ /photos\/.*\/#{text}/
+    assert resp[:image_url] =~ /photos\/.*\/#{text}/
 end
 
 Then /^I should get placement at ([\d.]+) ([\d.]+) scale ([\d.]+)$/ do |x, y, scale|
