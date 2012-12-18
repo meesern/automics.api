@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121214095151) do
+ActiveRecord::Schema.define(:version => 20121218100148) do
 
   create_table "placements", :force => true do |t|
     t.float    "xoff"
@@ -77,6 +77,7 @@ ActiveRecord::Schema.define(:version => 20121214095151) do
     t.datetime "updated_at"
     t.integer  "comic_id"
     t.integer  "photo_id"
+    t.integer  "page_order"
   end
 
   add_index "wp_panel", ["comic_id"], :name => "index_wp_panel_on_comic_id"

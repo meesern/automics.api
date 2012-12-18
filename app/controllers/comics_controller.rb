@@ -44,7 +44,12 @@ class ComicsController < ApplicationController
     begin
       data = JSON.parse(params['data'])
       @comic = Comic.find(params[:id])
-      @comic.update_attributes(data)
+      @comic.update_attributes(data.except('panels'))
+      #Update each panel in the data
+      data['panels'].each {|panel| 
+        @panel = @comic.panels.find(panel['id'])
+        @panel.update_attributes(panel)
+      } if data['panels']
       @data = @comic.select_fields
       render_api
     rescue

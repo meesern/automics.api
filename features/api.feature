@@ -207,7 +207,14 @@ Feature: Provide API
     Then I should get name: Mels Christmas Bells
 
   Scenario: I change the order of panels
-    Then to do 
+    Given group Christmas party exists
+    And   comic Mels Bells belongs to group Christmas party
+    And   panel 1 belongs to Mels Bells
+    And   panel 2 belongs to Mels Bells
+    When I post endpoint /v1/comic/1 with data={"panels":[{"id":1, "page_order":2},{"id":2, "page_order":1}]}
+    And  I get endpoint /v1/comic/1
+    Then Show me the Result
+    And  I should get panel 2 before panel 1
 
     #curl --noproxy localhost --request DELETE http://localhost:3000/v1/comic/1
   Scenario: I delete a comic

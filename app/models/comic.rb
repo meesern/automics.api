@@ -11,7 +11,7 @@ class Comic < ActiveRecord::Base
   set_table_name "wp_comic"
 
   belongs_to :group
-  has_many   :panels
+  has_many   :panels, :order => :page_order
 
   validates_presence_of :name
 

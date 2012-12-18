@@ -3,6 +3,7 @@ class Panel < ActiveRecord::Base
   hobo_model # Don't put anything above this
 
   fields do
+    page_order  :integer
     timestamps
   end
 
@@ -16,11 +17,11 @@ class Panel < ActiveRecord::Base
 
   #Fields reported by the API
   def self.report_field_names
-    "id, image_url"
+    "id, page_order, image_url"
   end
 
   def image_url
-    #andand soemtimes just doesn't work!
+    #andand sometimes just doesn't work!
     self.photo && self.photo.image_url
   end
 

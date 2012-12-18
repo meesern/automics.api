@@ -153,23 +153,29 @@ Then /^I should not get placement at ([\d.]+) ([\d.]+) scale ([\d.]+)$/ do |x, y
     assert_no_keyval_on_page("scale", scale, page)
 end
 
+Then /^I should get an image$/ do
+  resp = parse_page(page.html)
+  assert resp.has_key? :image_url
+end
+
+Then /^I should get a thumbnail$/ do
+  resp = parse_page(page.html)
+  assert resp.has_key? :thumb_url
+end
+
+Then /^I should get panel (\d+) before panel (\d+)$/ do |panel1, panel2|
+  resp = parse_page(page.html)
+  low = resp[:panels].find {|obj| obj[:id] == panel1.to_i}
+  hi  = resp[:panels].find {|obj| obj[:id] == panel2.to_i}
+  assert low[:page_order] < hi[:page_order]
+end
+
+
 #
 #-------------------------------------------------------------
 #
 Then /^to do$/ do
   #This step is still unimplemented
-  pending 
-end
-
-Then /^I should get the actual photo$/ do
-  pending 
-end
-
-Then /^I should get an image$/ do
-  pending 
-end
-
-Then /^I should get a thumbnail$/ do
   pending 
 end
 
