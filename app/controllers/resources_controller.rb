@@ -10,6 +10,12 @@ class ResourcesController < ApplicationController
     hobo_update(@resource)
   end
 
+  def create  
+    hobo_create
+    @resource.image = params[:image]
+    @resource.save!
+  end
+
   def api_index
     begin
       @theme = Theme.find(params[:id])

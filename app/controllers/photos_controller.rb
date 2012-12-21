@@ -10,6 +10,12 @@ class PhotosController < ApplicationController
     hobo_update(@photo)
   end
 
+  def create  
+    hobo_create
+    @photo.image = params[:image]
+    @photo.save!
+  end
+
   def api_index
     begin
       #This will need to be through current group
