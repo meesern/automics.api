@@ -11,7 +11,7 @@ class Photo < ActiveRecord::Base
     timestamps
   end
 
-  set_table_name "wp_photo"
+  self.table_name = "wp_photo"
   
   #provides image and thumb
   include ImageMixin

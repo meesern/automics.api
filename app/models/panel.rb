@@ -7,7 +7,7 @@ class Panel < ActiveRecord::Base
     timestamps
   end
 
-  set_table_name "wp_panel"
+  self.table_name = "wp_panel"
 
   belongs_to :comic
   has_one    :group, :through => :comic

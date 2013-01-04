@@ -17,7 +17,7 @@ class WpUser < ActiveRecord::Base
     administrator :boolean, :default => false
   end
 
-  set_table_name "wp_users"
+  self.table_name = "wp_users"
 
   belongs_to :group
 
