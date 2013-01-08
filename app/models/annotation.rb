@@ -11,7 +11,7 @@ class Annotation < ActiveRecord::Base
     timestamps
   end
 
-  set_table_name "wp_annotation"
+  self.table_name = "wp_annotation"
 
   belongs_to :panel
   has_one :group, :through => :panel

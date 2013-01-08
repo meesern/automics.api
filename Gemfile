@@ -1,6 +1,7 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.0.17'
+#gem 'rails', '3.0.17'
+gem 'rails', '3.2.10'
 gem 'sqlite3'
 gem 'mysql'
 
@@ -18,7 +19,8 @@ gem 'mysql'
 # gem 'nokogiri'
 # gem 'sqlite3-ruby', :require => 'sqlite3'
 # gem 'aws-s3', :require => 'aws/s3'
-gem "hobo", "= 1.3.2"
+#gem "hobo", "= 1.3.2"
+gem "hobo", "= 2.0.0.pre7"
 #gem "facets"  Facets not compatible with hobo/rails :(
 gem 'carrierwave'
 gem 'rmagick'
@@ -27,6 +29,9 @@ gem 'rabl'
 gem 'map_by_method'   # Needed by IRB on my mac ubuntu 11 VM for some reason 
 gem 'wirble' 
 gem 'andand'
+gem 'doorkeeper', '~> 0.6.5'
+gem "will_paginate", :git => "git://github.com/Hobo/will_paginate.git" #for hobo
+gem 'ruby-prof'
 
 # Bundle gems for the local environment. Make sure to
 # put test-only gems in this group so their generators

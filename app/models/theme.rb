@@ -7,7 +7,7 @@ class Theme < ActiveRecord::Base
     timestamps
   end
 
-  set_table_name "wp_theme"
+  self.table_name = "wp_theme"
 
   has_many :resources
   belongs_to :organisation

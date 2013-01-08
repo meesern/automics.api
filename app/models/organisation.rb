@@ -7,7 +7,7 @@ class Organisation < ActiveRecord::Base
     timestamps
   end
 
-  set_table_name "wp_organisation"
+  self.table_name = "wp_organisation"
 
   has_many  :themes
   has_many  :groups
