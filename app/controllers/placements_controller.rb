@@ -27,7 +27,7 @@ class PlacementsController < ApplicationController
 
   def api_create
     begin
-      data = JSON.parse(params['data'])
+      data = parse_request_data(params['data'])
       @panel = Panel.find(params[:panel])
       @resource = Resource.find(params[:resource])
       data[:resource] = @resource

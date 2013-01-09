@@ -14,4 +14,10 @@ class ApplicationController < ActionController::Base
     raise ActionController::RoutingError.new('Not Found')
   end
 
+  def parse_request_data(data)
+    #if the stack has parsed the JSON to ruby we do not need to do it again
+    data = JSON.parse(params['data']) if data.class == String
+    data
+  end
+
 end

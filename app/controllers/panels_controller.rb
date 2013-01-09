@@ -30,7 +30,7 @@ class PanelsController < ApplicationController
   def api_create
     begin
       #All groups belong to the default organisation if it's not specified
-      data = JSON.parse(params['data'])
+      data = parse_request_data(params['data'])
       @comic = Comic.find(params[:id])
       unless data[:page_order]
         biggest = (@comic.panels.map {|p| p.page_order || 0}.max)

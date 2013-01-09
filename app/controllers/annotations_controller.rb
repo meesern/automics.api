@@ -28,7 +28,7 @@ class AnnotationsController < ApplicationController
 
   def api_create
     begin
-      data = JSON.parse(params['data'])
+      data = parse_request_data(params['data'])
       logger.info("Creating annotation with #{data}")
       @annotation = Annotation.create(data)
       @data = @annotation.select_fields

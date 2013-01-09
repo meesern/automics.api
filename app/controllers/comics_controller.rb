@@ -30,7 +30,7 @@ class ComicsController < ApplicationController
 
   def api_create
     begin
-      data = JSON.parse(params['data'])
+      data = parse_request_data(params['data'])
       logger.info("Creating comic with #{data}")
       @comic = Comic.create(data)
       @data = @comic.select_fields
@@ -42,7 +42,7 @@ class ComicsController < ApplicationController
 
   def api_update
     begin
-      data = JSON.parse(params['data'])
+      data = parse_request_data(params['data'])
       @comic = Comic.find(params[:id])
       @comic.update_attributes(data.except('panels'))
       #Update each panel in the data

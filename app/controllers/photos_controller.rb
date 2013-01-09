@@ -41,9 +41,13 @@ class PhotosController < ApplicationController
     begin
       #The call has to be create here even though we will call save 
       #as ImageUploader needs the model id
-      data = JSON.parse(params['data'])
+      logger.info("creating photo")
+      data = parse_request_data(params['data'])
+      logger.info("parsed json")
       @photo = Photo.create(data.except("name","blob"))
+      logger.info("created photo")
       api_upload(data["name"], data["blob"])
+      logger.info("created photo")
       @data = @photo.select_fields
       render_api
     rescue
@@ -53,7 +57,7 @@ class PhotosController < ApplicationController
 
   def api_update
     begin
-      data = JSON.parse(params['data'])
+      data = parse_request_data(params['data'])
       @photo = Photo.find(params[:id])
       @photo.update_attributes(data)
       @photo = @photo.select_fields
@@ -87,11 +91,13 @@ class PhotosController < ApplicationController
       ext = File.extname(filename)
       base = File.basename(filename, ext)
       tmp = Tempfile.new([base,ext],:encoding=>'ascii-8bit')
+      logger.info("made tempfile")
       #For post body upload
       #tmp.write request.body.read
       tmp.write Base64.decode64(blob)
       @photo.image = ImageUploader.new
       @photo.image.store!(tmp)
+      logger.info("stored image")
       @photo.save
       @photo.reload #get the attached ImageUploader
   end
