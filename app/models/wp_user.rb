@@ -4,7 +4,7 @@ class WpUser < ActiveRecord::Base
 
   fields do
     user_login    :string, :required, :unique
-    user_email    :email_address, :login => true
+    user_email    :email_address, :login => true, :unique=>true
     user_pass     :string
     user_nicename :string
     user_url      :string
