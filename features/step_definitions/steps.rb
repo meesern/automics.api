@@ -59,6 +59,10 @@ When /^I get endpoint (.+)$/ do |endpoint|
   visit(endpoint)
 end
 
+When /^I post endpoint (.+) sending (.+) and headers (.+)$/ do |endpoint, data, headers|
+  @response = post(endpoint,data,eval(headers))
+end
+
 When /^I post endpoint (.+) with (.+)$/ do |endpoint, data|
   @response = post(endpoint,data)
 end
