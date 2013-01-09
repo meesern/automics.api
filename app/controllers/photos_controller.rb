@@ -39,11 +39,14 @@ class PhotosController < ApplicationController
 
   def api_create
     begin
+      logger.info("create photo")
       #The call has to be create here even though we will call save 
       #as ImageUploader needs the model id
       data = JSON.parse(params['data'])
       @photo = Photo.create(data.except("name","blob"))
+      logger.info("created photo: #{@photo}")
       api_upload(data["name"], data["blob"])
+      logger.info("uploaded")
       @data = @photo.select_fields
       render_api
     rescue
@@ -87,12 +90,16 @@ class PhotosController < ApplicationController
       ext = File.extname(filename)
       base = File.basename(filename, ext)
       tmp = Tempfile.new([base,ext],:encoding=>'ascii-8bit')
+      logger.info("created tempfile: #{tmp}")
       #For post body upload
       #tmp.write request.body.read
       tmp.write Base64.decode64(blob)
       @photo.image = ImageUploader.new
+      logger.info("storing tempfile: #{tmp}")
       @photo.image.store!(tmp)
+      logger.info("stored")
       @photo.save
+      logger.info("saved")
       @photo.reload #get the attached ImageUploader
   end
 
