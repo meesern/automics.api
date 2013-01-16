@@ -6,8 +6,13 @@ class PanelsController < ApplicationController
 
   def api_index
     begin
-      @comic = Comic.find(params[:id])
-      @panels = @comic.panels
+      if (params[:id])
+        @comic = Comic.find(params[:id])
+        @panels = @comic.panels
+      else
+        #TODO mediate with current group
+        @panels = Panel.all
+      end
       @data = @panels.map {|panel| panel.select_fields}
       render_api
     rescue

@@ -56,6 +56,7 @@ AutomicsApi::Application.routes.draw do |map|
 
   #Panel
   get  '/v1/comic/:id/panel'  		=> 'panels#api_index'
+  get  '/v1/panel'  		        => 'panels#api_index'
   post '/v1/comic/:id/panel' 		=> 'panels#api_create'
   get  '/v1/panel/:id'  		=> 'panels#api_show'
   post '/v1/panel/:id' 			=> 'panels#api_update'

@@ -244,6 +244,21 @@ Feature: Provide API
     And  I should not get id: 3
     And  I should get id: 4
 
+  Scenario: I list all panels in my group
+    Given comic Santa Rich exists
+    And   comic Mels Bells exists
+    And   panel 1 belongs to Santa Rich
+    And   panel 2 belongs to Santa Rich
+    And   panel 3 belongs to Mels Bells
+    And   panel 4 belongs to Santa Rich
+    When I get endpoint /v1/panel
+    Then Show me the Result
+    And  I should get 4 results
+    And  I should get id: 1
+    And  I should get id: 2
+    And  I should get id: 3
+    And  I should get id: 4
+
   Scenario: I want a particular panel 
     Given comic Mels Bells exists
     And   panel 1 belongs to Mels Bells
