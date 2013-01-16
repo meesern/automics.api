@@ -1,4 +1,10 @@
-AutomicsApi::Application.routes.draw do
+AutomicsApi::Application.routes.draw do |map|
+  # consider reworking with nested shallow routes and prefix
+  # scope "/v1" do
+  #   map.resources :organisation, :has_many => :themes, :shallow => true
+  # end
+  # etc.
+  
   root :to => 'front#index'
 
   #Group
