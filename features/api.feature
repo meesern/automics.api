@@ -11,6 +11,12 @@ Feature: Provide API
   Background: It's Christmas
     Given organisation Automics exists
 
+  Scenario: I want to login
+    Given user Bob exists
+    And   user Bob has password "woo"
+    When I post endpoint /v1/login with data={"name":"Bob", "password":"woo"}
+    Then I should get a session cookie
+
   Scenario: I list all groups available to me
     Given group Jonty's House exists
     And   group Christmas party exists
